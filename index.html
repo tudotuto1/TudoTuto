@@ -1,111 +1,487 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tudo Tuto</title>
+  <meta charset="UTF-8">
+  <title>Tudo Tuto | Soutien Scolaire en Ligne</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== Variables CSS ===== */
+    :root {
+      --primary: #2D6A4F;    /* Vert forêt profond */
+      --secondary: #40916C;  /* Vert moyen */
+      --accent: #D8F3DC;     /* Vert très clair (menthe) */
+      --bg-color: #FAFAF9;   /* Blanc cassé / Crème très léger */
+      --text-dark: #1F2937;  /* Gris très foncé */
+      --text-light: #4B5563; /* Gris moyen */
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(0,0,0,0.05);
+      --radius: 12px;
+    }
+
+    /* ===== Global ===== */
+    * { box-sizing: border-box; }
+    
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9fafb;
-      color: #111;
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-dark);
+      line-height: 1.7;
+      scroll-behavior: smooth;
     }
 
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { padding-left: 20px; }
+
+    /* ===== Header (Glassmorphism) ===== */
     header {
-      background: #0f2a44;
-      color: white;
-      padding: 20px;
-      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
-    section {
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Simulation d'un logo si l'image manque */
+    .logo-circle {
+      width: 35px; height: 35px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+
+    .desktop-nav {
+      display: none; /* Caché sur mobile */
+    }
+
+    .desktop-nav a {
+      margin-left: 30px;
+      font-weight: 500;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+    .desktop-nav a:hover { color: var(--primary); }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--primary);
+      display: block;
+    }
+
+    /* ===== Mobile Drawer ===== */
+    #drawer {
+      position: fixed;
+      right: -280px;
+      top: 0;
+      width: 280px;
+      height: 100%;
+      background: var(--white);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 80px 30px;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #drawer.show { transform: translateX(-280px); }
+
+    #drawer a {
+      color: var(--text-dark);
+      font-weight: 600;
+      margin: 15px 0;
+      font-size: 18px;
+      border-bottom: 1px solid transparent;
+      transition: 0.3s;
+    }
+    
+    #drawer a:hover { color: var(--primary); padding-left: 10px; }
+    
+    /* Overlay sombre quand le menu est ouvert */
+    #overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #overlay.show { opacity: 1; pointer-events: all; }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 85vh;
+      text-align: center;
       padding: 40px 20px;
-      max-width: 900px;
+      background: linear-gradient(135deg, var(--bg-color) 0%, #E8F5E9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5em, 5vw, 4em); /* Taille responsive */
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #1a3c34;
+    }
+    
+    .hero p {
+      font-size: 1.25em;
+      color: var(--text-light);
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .btn-cta { 
+      background: var(--primary); 
+      color: white; 
+      padding: 16px 32px; 
+      border-radius: 50px; 
+      font-weight: 600;
+      font-size: 1.1em;
+      box-shadow: 0 10px 25px rgba(45, 106, 79, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    
+    .btn-cta:hover { 
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(45, 106, 79, 0.4);
+    }
+
+    /* ===== Sections Générales ===== */
+    section {
+      padding: 80px 20px;
+      max-width: 800px;
       margin: auto;
     }
 
-    h1, h2 {
-      color: #0f2a44;
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-header h2 { font-size: 2.5em; margin-bottom: 10px;}
+    .section-header span { color: var(--secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9em;}
+
+    /* ===== Accordéons Modernes ===== */
+    .accordion-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .btn {
-      display: inline-block;
-      background: #2ea44f;
-      color: white;
-      padding: 14px 22px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 20px;
+    .accordion-header {
+      padding: 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.2em;
+      color: var(--primary);
+      user-select: none;
     }
 
-    .card {
+    .accordion-header:hover { background: #fdfdfd; }
+
+    /* Icône + / - animée */
+    .icon {
+      width: 24px; height: 24px; position: relative;
+    }
+    .icon::before, .icon::after {
+      content: ''; position: absolute; background: var(--secondary);
+      border-radius: 2px; transition: 0.3s;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .icon::before { width: 14px; height: 2px; } /* Barre horizontale */
+    .icon::after { width: 2px; height: 14px; } /* Barre verticale */
+
+    /* État ouvert */
+    .accordion-item.active .icon::after { height: 0; } /* Devient un moins */
+    
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: #fafafa;
+    }
+
+    .accordion-inner { padding: 0 25px 25px 25px; color: var(--text-light); }
+
+    /* ===== Carte Tarif ===== */
+    .price-card {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--accent);
+    }
+    .price { font-size: 3em; font-weight: 700; color: var(--primary); margin: 20px 0; }
+    .price span { font-size: 0.4em; color: var(--text-light); font-weight: 400; }
+    
+    .logos img { height: 40px; margin-top: 20px; opacity: 0.8; }
+
+    /* ===== Calendly & Footer ===== */
+    .calendly-wrapper {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
     }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 0.9em;
+      background: var(--white);
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* ===== Responsive Desktop ===== */
+    @media (min-width: 768px) {
+      .menu-btn { display: none; }
+      .desktop-nav { display: block; }
+      
+      .hero { text-align: left; align-items: flex-start; padding-left: 10%; }
+      .hero h1 { max-width: 700px; }
+      
+      /* Petite décoration cercle CSS en fond desktop */
+      .hero::after {
+        content: '';
+        position: absolute;
+        right: -100px; top: 100px;
+        width: 500px; height: 500px;
+        background: var(--accent);
+        border-radius: 50%;
+        opacity: 0.5;
+        z-index: -1;
+      }
+    }
+
+    /* Bouton retour en haut */
+    #topBtn {
+      position: fixed; bottom: 30px; right: 30px;
+      background: var(--primary); color: white;
+      border: none; padding: 15px; border-radius: 50%;
+      cursor: pointer; display: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    #topBtn:hover { transform: translateY(-5px); background: var(--secondary); }
+
   </style>
 </head>
 
 <body>
 
+<div id="overlay" onclick="toggleDrawer()"></div>
+
 <header>
-  <h1>Tudo Tuto</h1>
-  <p>Tutorat personnalisé en mathématiques et sciences</p>
-  <a class="btn" href="#book">Book a free call</a>
+  <div class="logo">
+    <div class="logo-circle">T</div>
+    Tudo Tuto
+  </div>
+  
+  <nav class="desktop-nav">
+    <a href="#about">À propos</a>
+    <a href="#services">Services</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#book" style="color: var(--primary); font-weight: 700;">Réserver</a>
+  </nav>
+
+  <span class="menu-btn" onclick="toggleDrawer()">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </span>
 </header>
 
-<section>
-  <h2>À propos</h2>
-  <p>
-    Je suis étudiant en génie mécanique et j’accompagne des étudiants
-    dans la compréhension de leurs cours, la résolution d’exercices
-    et la préparation aux examens.
-  </p>
-</section>
+<div id="drawer">
+  <div class="logo" style="margin-bottom: 40px;">Tudo Tuto</div>
+  <a href="#about" onclick="toggleDrawer()">À propos</a>
+  <a href="#services" onclick="toggleDrawer()">Services</a>
+  <a href="#tarifs" onclick="toggleDrawer()">Tarifs</a>
+  <a href="#book" onclick="toggleDrawer()">Book a call</a>
+</div>
 
-<section>
-  <h2>Comment ça marche</h2>
-  <ol>
-    <li>Vous réservez un appel gratuit</li>
-    <li>Nous évaluons les besoins de l’élève</li>
-    <li>Les séances se font en ligne sur Teams</li>
-    <li>Suivi personnalisé et structuré</li>
-  </ol>
-</section>
+<div class="hero">
+  <h1>Booster la réussite scolaire de vos enfants.</h1>
+  <p>Nous accompagnons les élèves pour comprendre, pratiquer et gagner en autonomie. Une méthode prouvée par des étudiants en génie.</p>
+  <a class="btn-cta" href="#book">Réserver un appel gratuit</a>
+</div>
 
-<section>
-  <h2>Services & Tarifs</h2>
-
-  <div class="card">
-    <strong>Séance ponctuelle – 1h</strong>
-    <p>25 $ — aide aux exercices et explications ciblées</p>
+<section id="about">
+  <div class="section-header">
+    <span>Notre équipe</span>
+    <h2>Qui sommes-nous ?</h2>
+  </div>
+  
+  <div class="accordion-item" onclick="toggleAccordion(this)">
+    <div class="accordion-header">
+      Étudiants ingénieurs certifiés
+      <div class="icon"></div>
+    </div>
+    <div class="accordion-content">
+      <div class="accordion-inner">
+        <p>Nous sommes un groupe d’étudiants en génie passionnés par l’enseignement. Certifiés en assistance scolaire, nous aimons aider les élèves à comprendre leurs cours et résoudre leurs exercices.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <strong>Suivi hebdomadaire – 2h / semaine</strong>
-    <p>45 $ / semaine — accompagnement continu</p>
+  <div class="accordion-item" onclick="toggleAccordion(this)">
+    <div class="accordion-header">
+      Sécurité & Transparence
+      <div class="icon"></div>
+    </div>
+    <div class="accordion-content">
+      <div class="accordion-inner">
+        <p>Pour la tranquillité d’esprit des parents : une pièce d’identité peut être fournie sur demande et les séances peuvent être enregistrées et partagées.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="background: white; border-radius: 40px; margin: 40px auto; width: 95%;">
+  <div class="section-header">
+    <span>Méthodologie</span>
+    <h2>Comment ça marche ?</h2>
+    <p style="color: var(--text-light)">Nos séances se déroulent sur <strong>Teams</strong>.</p>
   </div>
 
-  <p>Aucun engagement. Paiement simple par Interac.</p>
+  <div class="accordion-item" onclick="toggleAccordion(this)">
+    <div class="accordion-header">
+      Nos services en détail
+      <div class="icon"></div>
+    </div>
+    <div class="accordion-content">
+      <div class="accordion-inner">
+        <ul>
+          <li><strong>Aide aux devoirs :</strong> Déblocage rapide sur des exercices difficiles.</li>
+          <li><strong>Concepts clés :</strong> Explication simple et résumés pratiques.</li>
+          <li><strong>Organisation :</strong> Méthodologie et planification de la semaine.</li>
+          <li><strong>Pratique :</strong> Exercices étape par étape pour l'autonomie.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tarifs">
+  <div class="section-header">
+    <span>Investissement</span>
+    <h2>Tarification simple</h2>
+  </div>
+
+  <div class="price-card">
+    <h3>Accompagnement régulier</h3>
+    <div class="price">50 $ <span>/ semaine</span></div>
+    <p>Pour 2h de cours par semaine</p>
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+    <p style="font-size: 0.9em; color: var(--text-light);">Paiement facile et sécurisé via Interac</p>
+    <div class="logos" style="font-weight: bold; color: #ffb600; font-style: italic;">
+       Interac <span style="color:black;">e-Transfer</span>
+    </div>
+  </div>
 </section>
 
 <section id="book">
-  <h2>Book a free call</h2>
-
-  <div class="calendly-inline-widget"
-       data-url="https://calendly.com/commercial-vitriweb/30min"
-       style="min-width:320px;height:700px;">
+  <div class="section-header">
+    <h2>Réserver un créneau</h2>
+    <p>Choisissez le moment qui vous convient le mieux.</p>
   </div>
-
-  <script type="text/javascript"
-          src="https://assets.calendly.com/assets/external/widget.js"
-          async>
-  </script>
+  
+  <div class="calendly-wrapper">
+    <div class="calendly-inline-widget" data-url="https://calendly.com/commercial-vitriweb/30min" style="min-width:320px;height:700px;"></div>
+  </div>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </section>
+
+<footer>
+  <p>© 2026 Tudo Tuto. Tous droits réservés.</p>
+</footer>
+
+<button onclick="topFunction()" id="topBtn" title="Haut de page">↑</button>
+
+<script>
+  // Drawer & Overlay toggle
+  function toggleDrawer() {
+    const drawer = document.getElementById("drawer");
+    const overlay = document.getElementById("overlay");
+    drawer.classList.toggle("show");
+    overlay.classList.toggle("show");
+  }
+
+  // Accordion Logic avec animation classe
+  function toggleAccordion(element) {
+    // Si on veut fermer les autres quand on en ouvre un :
+    // document.querySelectorAll('.accordion-item').forEach(item => {
+    //   if(item !== element) {
+    //     item.classList.remove('active');
+    //     item.querySelector('.accordion-content').style.maxHeight = null;
+    //   }
+    // });
+
+    element.classList.toggle('active');
+    var content = element.querySelector('.accordion-content');
+    
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  }
+
+  // Retour en haut
+  var topBtn = document.getElementById("topBtn");
+  window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      topBtn.style.display = "block";
+    } else {
+      topBtn.style.display = "none";
+    }
+  };
+
+  function topFunction() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
 </body>
 </html>
