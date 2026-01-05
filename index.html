@@ -2,286 +2,481 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tudo Tuto | Excellence Scolaire</title>
+  <title>Tudo Tuto | L'Excellence Scolaire</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== PALETTE DE COULEURS ===== */
     :root {
-      --primary: #2D6A4F;
-      --secondary: #40916C;
-      --accent: #D8F3DC;
-      --bg: #FAFAF9;
+      --primary: #2D6A4F;    /* Vert forêt */
+      --secondary: #40916C;  /* Vert feuille */
+      --beige: #F3E9DC;      /* Beige chaleureux */
+      --accent: #D8F3DC;     /* Menthe clair */
       --white: #ffffff;
-      --text: #1F2937;
+      --text-dark: #1F2937;
+      --text-soft: #4B5563;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
+    /* ===== BASE ===== */
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      scroll-behavior: smooth;
-      overflow-x: hidden;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden; /* Empêche le scroll horizontal */
     }
+    
+    h1, h2, h3 { font-family: 'Poppins', sans-serif; color: var(--primary); margin-top: 0; }
+    p { line-height: 1.6; color: var(--text-soft); }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { padding-left: 20px; color: var(--text-soft); }
+    li { margin-bottom: 8px; }
 
-    /* ===== HEADER & LANG SWITCH ===== */
+    /* ===== HEADER & LOGO ANIMÉ ===== */
     header {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 10px 5%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky; top: 0; z-index: 1000;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
     }
 
-    .logo-container { display: flex; align-items: center; gap: 15px; }
-    
-    /* Le Canvas pour l'animation des billes */
-    #logoCanvas {
-      width: 50px; height: 50px;
-      cursor: pointer;
-    }
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    canvas { width: 40px; height: 40px; } /* Taille des billes */
+    .brand-name { font-weight: 700; font-size: 1.2rem; color: var(--primary); }
 
-    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-actions { display: flex; align-items: center; gap: 15px; }
 
+    /* Bouton Langue */
     .lang-btn {
-      background: var(--accent);
-      border: 1px solid var(--primary);
+      background: var(--beige);
       color: var(--primary);
-      padding: 5px 12px;
+      border: 1px solid var(--primary);
+      padding: 6px 14px;
       border-radius: 20px;
-      cursor: pointer;
       font-weight: 600;
-      font-size: 0.8em;
-      transition: 0.3s;
+      cursor: pointer;
+      font-size: 0.85rem;
     }
     .lang-btn:hover { background: var(--primary); color: white; }
 
-    /* ===== HERO SECTION ===== */
-    .hero {
-      padding: 100px 5% 60px;
-      text-align: center;
-      background: linear-gradient(180deg, #E8F5E9 0%, var(--bg) 100%);
-    }
+    /* Menu Hamburger */
+    .menu-btn { font-size: 1.8rem; cursor: pointer; display: none; color: var(--primary); }
 
-    .hero h1 { font-family: 'Poppins'; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--primary); margin-bottom: 20px; }
-    .hero p { max-width: 600px; margin: 0 auto 30px; font-size: 1.2rem; color: #4B5563; }
+    /* Desktop Menu */
+    .desktop-nav a { margin-left: 25px; font-weight: 500; font-size: 0.95rem; }
+    .desktop-nav a:hover { color: var(--secondary); }
+
+    /* ===== DRAWER MOBILE ===== */
+    #drawer {
+      position: fixed; top: 0; right: -300px;
+      width: 280px; height: 100vh;
+      background: var(--white);
+      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+      padding: 80px 30px;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    #drawer.open { right: 0; }
+    #drawer a { font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    
+    /* Overlay sombre */
+    #overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 998;
+      display: none;
+    }
+    #overlay.open { display: block; }
+
+    /* ===== HERO SECTION (BEIGE) ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--beige) 0%, #FFF 100%);
+      padding: 60px 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 80vh; /* Prend presque tout l'écran */
+      justify-content: center;
+    }
 
     .badge {
-      display: inline-block;
-      background: #FFD700;
-      color: #000;
-      padding: 5px 15px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 0.9rem;
+      background: #FFD700; color: black;
+      padding: 6px 16px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: bold;
       margin-bottom: 20px;
-      animation: pulse 2s infinite;
+      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
+    .hero p { max-width: 600px; margin-bottom: 30px; font-size: 1.1rem; }
+
+    .btn-main {
+      background: var(--primary); color: white;
+      padding: 16px 32px; border-radius: 50px;
+      font-weight: 600; font-size: 1rem;
+      box-shadow: 0 10px 20px rgba(45, 106, 79, 0.3);
+      display: inline-block;
+    }
+    .btn-main:hover { transform: translateY(-3px); background: var(--secondary); }
+
+    /* ===== SECTION IMAGE (VISUEL MAMAN/ENFANT) ===== */
+    .visual-section {
+      width: 100%;
+      max-width: 1000px;
+      margin: -50px auto 60px; /* Remonte sur la section hero */
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .visual-section img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border: 4px solid white;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    /* ===== SECTION MARKETING ===== */
-    .marketing-grid {
+    /* ===== MARKETING CARDS ===== */
+    .section-title { text-align: center; margin-bottom: 40px; padding: 0 20px; }
+    .section-title h2 { font-size: 2.2rem; }
+    
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 40px 5%;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
     }
 
-    .m-card {
+    .card {
       background: white;
       padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      border-top: 4px solid var(--primary);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+      border-top: 5px solid var(--secondary);
     }
+    .card:hover { transform: translateY(-5px); }
+    .card h3 { font-size: 1.3rem; margin-bottom: 10px; }
 
-    .m-card h3 { color: var(--primary); margin-top: 0; }
+    /* ===== SERVICES (ACCORDÉON) ===== */
+    .details-section {
+      background: var(--beige); /* Fond beige pour couper */
+      padding: 80px 20px;
+    }
+    
+    .accordion { max-width: 800px; margin: 0 auto; }
+    
+    .acc-item {
+      background: white;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .acc-header {
+      padding: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--primary);
+    }
+    
+    .acc-content {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #fafafa;
+    }
+    .acc-body { padding: 20px; border-top: 1px solid #eee; }
 
     /* ===== CALENDLY & FOOTER ===== */
-    #book { padding: 60px 5%; text-align: center; }
-    .warning-text { font-size: 0.8rem; color: #999; margin-top: 20px; }
+    .booking-section { padding: 80px 20px; text-align: center; }
+    
+    footer {
+      background: var(--primary);
+      color: var(--accent);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+    }
 
-    /* Mobile Menu (Simplifié) */
-    .menu-toggle { font-size: 1.5rem; cursor: pointer; display: none; }
-
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .menu-toggle { display: block; }
-      .desktop-links { display: none; }
+      .menu-btn { display: block; }
+      .desktop-nav { display: none; }
+      .hero { padding-top: 40px; }
+      .visual-section { margin-top: 0; } /* Ajustement mobile */
     }
   </style>
 </head>
 <body>
 
+<div id="overlay" onclick="toggleMenu()"></div>
+
 <header>
-  <div class="logo-container">
+  <div class="logo-area" onclick="explodeParticles()">
     <canvas id="logoCanvas"></canvas>
-    <span style="font-family: 'Poppins'; font-size: 1.2rem; font-weight: bold; color: var(--primary);">Tudo Tuto</span>
+    <span class="brand-name">Tudo Tuto</span>
   </div>
-  
-  <div class="nav-right">
+
+  <nav class="desktop-nav">
+    <a href="#about" data-key="nav_about">À propos</a>
+    <a href="#details" data-key="nav_details">Services</a>
+    <a href="#book" data-key="nav_book">Réserver</a>
+  </nav>
+
+  <div class="nav-actions">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
-    <div class="menu-toggle">☰</div>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
   </div>
 </header>
 
-<div class="hero">
-  <div class="badge" id="badgeText">🇨🇦 Soutien Scolaire Canada & USA 🇺🇸</div>
-  <h1 id="heroTitle">Réussir n'a jamais été aussi simple.</h1>
-  <p id="heroDesc">Un accompagnement sur mesure par des étudiants en génie pour transformer les difficultés en force.</p>
-  <a href="#book" class="lang-btn" style="padding: 15px 30px; font-size: 1rem;" id="ctaBtn">Réserver mon appel gratuit</a>
+<div id="drawer">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <span class="brand-name">Menu</span>
+    <span onclick="toggleMenu()" style="cursor:pointer; font-size:1.5rem;">✕</span>
+  </div>
+  <a href="#about" onclick="toggleMenu()" data-key="nav_about">À propos</a>
+  <a href="#details" onclick="toggleMenu()" data-key="nav_details">Services</a>
+  <a href="#book" onclick="toggleMenu()" data-key="nav_book">Réserver</a>
 </div>
 
-<section class="marketing-grid">
-  <div class="m-card">
-    <h3 id="card1Title">Ingénierie de l'apprentissage</h3>
-    <p id="card1Desc">On n'apprend pas juste des formules, on apprend à réfléchir. Notre approche logique aide à comprendre le "pourquoi".</p>
+<section class="hero">
+  <div class="badge" data-key="hero_badge">🇨🇦 Expertise Canada & USA 🇺🇸</div>
+  <h1 data-key="hero_title">L'ingénierie au service<br>de la réussite scolaire.</h1>
+  <p data-key="hero_desc">Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.</p>
+  <a href="#book" class="btn-main" data-key="hero_cta">Booker mon appel gratuit (15 min)</a>
+</section>
+
+<section class="visual-section">
+  <img src="https://images.unsplash.com/photo-1577896332210-2dc012c41808?q=80&w=1000&auto=format&fit=crop" alt="Enfant et tuteur">
+</section>
+
+<section id="about" class="grid">
+  <div class="card">
+    <h3 data-key="card1_title">🧠 Esprit d'Ingénieur</h3>
+    <p data-key="card1_desc">Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.</p>
   </div>
-  <div class="m-card">
-    <h3 id="card2Title">Tranquillité d'esprit</h3>
-    <p id="card2Desc">Séances sur Teams, enregistrements disponibles et suivi rigoureux pour les parents. Sécurité maximale.</p>
+  <div class="card">
+    <h3 data-key="card2_title">🔒 100% Sécurisé</h3>
+    <p data-key="card2_desc">Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.</p>
   </div>
-  <div class="m-card">
-    <h3 id="card3Title">Focus Primaire/Secondaire</h3>
-    <p id="card3Desc">Nous spécialisons notre expertise pour les niveaux scolaires afin de garantir les meilleurs résultats. (Pas d'universitaire).</p>
+  <div class="card">
+    <h3 data-key="card3_title">🎯 Cible Précise</h3>
+    <p data-key="card3_desc">Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).</p>
   </div>
 </section>
 
-<section id="book">
-  <h2 id="bookTitle">Prêt à commencer ?</h2>
-  <div class="calendly-inline-widget" data-url="https://calendly.com/commercial-vitriweb/30min" style="min-width:320px;height:700px;"></div>
+<section id="details" class="details-section">
+  <div class="section-title">
+    <h2 data-key="details_title">Comment nous aidons votre enfant ?</h2>
+    <p data-key="details_sub">Une approche complète, pas juste de l'aide aux devoirs.</p>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span data-key="acc1_title">📚 Aide aux devoirs & Blocs</span>
+        <span>+</span>
+      </div>
+      <div class="acc-content"><div class="acc-body" data-key="acc1_desc">
+        Votre enfant bloque sur un exercice ? Nous débloquons la situation, expliquons la règle et lui faisons pratiquer un exercice similaire pour valider.
+      </div></div>
+    </div>
+    
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span data-key="acc2_title">🗓️ Organisation & Méthodologie</span>
+        <span>+</span>
+      </div>
+      <div class="acc-content"><div class="acc-body" data-key="acc2_desc">
+        Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces inspirées du génie.
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span data-key="acc3_title">🚀 Préparation aux Examens</span>
+        <span>+</span>
+      </div>
+      <div class="acc-content"><div class="acc-body" data-key="acc3_desc">
+        Ne plus jamais réviser à la dernière minute. Nous créons des fiches de révision et des simulations pour arriver confiant le jour J.
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="book" class="booking-section">
+  <h2 data-key="book_title">Discutons de ses besoins</h2>
+  <p data-key="book_desc">Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon "fit" pour votre enfant.</p>
+  
+  <div class="calendly-inline-widget" data-url="TON_LIEN_ICI" style="min-width:320px;height:700px;"></div>
+  
+  <p style="margin-top:20px; font-size:0.8rem; color:#888;">* Uniquement pour Primaire & Secondaire (Canada/USA).</p>
 </section>
 
 <footer>
-  <div style="text-align: center; padding: 40px; background: white;">
-    <p id="footerRefus" class="warning-text">Note : Services exclusifs au secteur primaire et secondaire au Canada/USA.</p>
-  </div>
+  <p>© 2026 Tudo Tuto. Engineering better grades.</p>
 </footer>
 
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <script>
-/* ==========================
-   LOGIQUE DES LANGUES (FR/EN)
-   ========================== */
-let currentLang = 'fr';
-const texts = {
-  fr: {
-    badge: "🇨🇦 Soutien Scolaire Canada & USA 🇺🇸",
-    title: "Réussir n'a jamais été aussi simple.",
-    desc: "Un accompagnement sur mesure par des étudiants en génie pour transformer les difficultés en force.",
-    cta: "Réserver mon appel gratuit",
-    c1t: "Ingénierie de l'apprentissage",
-    c1d: "On n'apprend pas juste des formules, on apprend à réfléchir. Notre approche logique aide à comprendre le 'pourquoi'.",
-    c2t: "Tranquillité d'esprit",
-    c2d: "Séances sur Teams, enregistrements disponibles et suivi rigoureux. Sécurité maximale.",
-    c3t: "Focus Scolaire",
-    c3d: "Spécialistes Primaire & Secondaire. Nous ne prenons pas de dossiers universitaires.",
-    book: "Prêt à commencer ?",
-    refus: "Note : Services exclusifs au secteur primaire et secondaire au Canada/USA."
-  },
-  en: {
-    badge: "🇨🇦 Canada & USA Tutoring 🇺🇸",
-    title: "Success has never been easier.",
-    desc: "Tailored support from engineering students to turn challenges into strengths.",
-    cta: "Book my free call",
-    c1t: "Learning Engineering",
-    c1d: "We don't just teach formulas, we teach how to think. Our logical approach helps understand the 'why'.",
-    c2t: "Peace of Mind",
-    c2d: "Teams sessions, recordings available, and rigorous follow-ups. Maximum security.",
-    c3t: "School Focus",
-    c3d: "Primary & High School Specialists. We do not accept university-level students.",
-    book: "Ready to start?",
-    refus: "Note: Services exclusively for Primary and Secondary levels in Canada/USA."
+  /* ===== 1. TEXTES MULTILINGUES (FR/EN) ===== */
+  const translations = {
+    fr: {
+      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver",
+      hero_badge: "🇨🇦 Expertise Canada & USA 🇺🇸",
+      hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
+      hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
+      hero_cta: "Booker mon appel gratuit (15 min)",
+      card1_title: "🧠 Esprit d'Ingénieur",
+      card1_desc: "Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.",
+      card2_title: "🔒 100% Sécurisé",
+      card2_desc: "Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.",
+      card3_title: "🎯 Cible Précise",
+      card3_desc: "Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).",
+      details_title: "Comment nous aidons votre enfant ?",
+      details_sub: "Une approche complète, pas juste de l'aide aux devoirs.",
+      acc1_title: "📚 Aide aux devoirs & Blocs",
+      acc1_desc: "Votre enfant bloque sur un exercice ? Nous débloquons la situation, expliquons la règle et lui faisons pratiquer un exercice similaire pour valider.",
+      acc2_title: "🗓️ Organisation & Méthodologie",
+      acc2_desc: "Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces.",
+      acc3_title: "🚀 Préparation aux Examens",
+      acc3_desc: "Ne plus jamais réviser à la dernière minute. Nous créons des fiches de révision et des simulations pour arriver confiant le jour J.",
+      book_title: "Discutons de ses besoins",
+      book_desc: "Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon 'fit' pour votre enfant."
+    },
+    en: {
+      nav_about: "About", nav_details: "Services", nav_book: "Book",
+      hero_badge: "🇨🇦 Canada & USA Expertise 🇺🇸",
+      hero_title: "Engineering Logic<br>for Academic Success.",
+      hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
+      hero_cta: "Book my free call (15 min)",
+      card1_title: "🧠 Engineering Mindset",
+      card1_desc: "We don't just teach by rote. We teach your child to think, structure their thoughts, and solve complex problems.",
+      card2_title: "🔒 100% Secure",
+      card2_desc: "Teams sessions. Option to record sessions for parental peace of mind and student review.",
+      card3_title: "🎯 Focused Target",
+      card3_desc: "Primary & High School Specialists. We focus on solid academic foundations (No University level).",
+      details_title: "How we help your child?",
+      details_sub: "A complete approach, not just homework help.",
+      acc1_title: "📚 Homework Help & Blocks",
+      acc1_desc: "Stuck on an exercise? We unblock the situation, explain the rule, and practice with similar problems to validate understanding.",
+      acc2_title: "🗓️ Organization & Methods",
+      acc2_desc: "An organized student succeeds better. We help plan the study week and adopt efficient work methods.",
+      acc3_title: "🚀 Exam Prep",
+      acc3_desc: "No more last-minute cramming. We create review sheets and simulations to arrive confident on D-Day.",
+      book_title: "Let's discuss needs",
+      book_desc: "Book a free 15-min slot to see if we are the right fit for your child."
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function toggleLang() {
+    currentLang = currentLang === 'fr' ? 'en' : 'fr';
+    document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
+    
+    const elements = document.querySelectorAll('[data-key]');
+    elements.forEach(el => {
+      const key = el.getAttribute('data-key');
+      if (translations[currentLang][key]) {
+        el.innerHTML = translations[currentLang][key]; // innerHTML pour garder les <br>
+      }
+    });
   }
-};
 
-function toggleLang() {
-  currentLang = currentLang === 'fr' ? 'en' : 'fr';
-  document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
-  
-  const l = texts[currentLang];
-  document.getElementById('badgeText').innerText = l.badge;
-  document.getElementById('heroTitle').innerText = l.title;
-  document.getElementById('heroDesc').innerText = l.desc;
-  document.getElementById('ctaBtn').innerText = l.cta;
-  document.getElementById('card1Title').innerText = l.c1t;
-  document.getElementById('card1Desc').innerText = l.c1d;
-  document.getElementById('card2Title').innerText = l.c2t;
-  document.getElementById('card2Desc').innerText = l.c2d;
-  document.getElementById('card3Title').innerText = l.c3t;
-  document.getElementById('card3Desc').innerText = l.c3d;
-  document.getElementById('bookTitle').innerText = l.book;
-  document.getElementById('footerRefus').innerText = l.refus;
-}
-
-/* ==========================
-   ANIMATION DES BILLES (CANVAS)
-   ========================== */
-const canvas = document.getElementById('logoCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = 100; canvas.height = 100;
-
-let particles = [];
-const particleCount = 40;
-const targetPoints = [
-  // Forme simplifiée du "T"
-  {x: 50, y: 30}, {x: 35, y: 30}, {x: 65, y: 30}, // Barre du haut
-  {x: 50, y: 45}, {x: 50, y: 60}, {x: 50, y: 75}  // Barre verticale
-];
-
-class Particle {
-  constructor() {
-    this.reset();
+  /* ===== 2. DRAWER MENU ===== */
+  function toggleMenu() {
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
   }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.target = targetPoints[Math.floor(Math.random() * targetPoints.length)];
-    this.size = Math.random() * 4 + 2;
-    this.speed = 0.05 + Math.random() * 0.05;
-  }
-  update() {
-    this.x += (this.target.x - this.x) * this.speed;
-    this.y += (this.target.y - this.y) * this.speed;
-  }
-  draw() {
-    ctx.fillStyle = '#2D6A4F';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
 
-for(let i=0; i<particleCount; i++) particles.push(new Particle());
+  /* ===== 3. ACCORDÉON ===== */
+  function toggleAcc(header) {
+    const content = header.nextElementSibling;
+    const isIsOpen = content.style.maxHeight;
+    
+    // Fermer tous les autres (optionnel)
+    document.querySelectorAll('.acc-content').forEach(c => c.style.maxHeight = null);
+    
+    if (!isIsOpen) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  }
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animate);
-}
-animate();
+  /* ===== 4. ANIMATION BILLES (CANVAS) ===== */
+  const canvas = document.getElementById('logoCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 80; canvas.height = 80; // Résolution interne
 
-// Relancer l'éparpillement au clic sur le logo
-canvas.addEventListener('click', () => {
-  particles.forEach(p => {
-    p.x = Math.random() * canvas.width;
-    p.y = Math.random() * canvas.height;
-  });
-});
+  let particles = [];
+  // Points cible pour former un "T"
+  const targetPoints = [
+    {x: 40, y: 20}, {x: 30, y: 20}, {x: 50, y: 20}, {x: 20, y: 20}, {x: 60, y: 20}, // Barre haut
+    {x: 40, y: 30}, {x: 40, y: 40}, {x: 40, y: 50}, {x: 40, y: 60} // Barre verticale
+  ];
+
+  class Particle {
+    constructor() {
+      this.reset(true);
+    }
+    reset(randomStart = false) {
+      if(randomStart) {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+      }
+      this.target = targetPoints[Math.floor(Math.random() * targetPoints.length)];
+      this.vx = 0; this.vy = 0;
+      this.size = 2.5;
+    }
+    update() {
+      // Physique douce (easing)
+      this.x += (this.target.x - this.x) * 0.08;
+      this.y += (this.target.y - this.y) * 0.08;
+    }
+    draw() {
+      ctx.fillStyle = '#2D6A4F';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Créer 40 billes
+  for(let i=0; i<40; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  function explodeParticles() {
+    particles.forEach(p => {
+      p.x = Math.random() * canvas.width;
+      p.y = Math.random() * canvas.height;
+    });
+  }
 </script>
 
-  
 </body>
 </html>
