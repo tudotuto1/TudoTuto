@@ -2,485 +2,284 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tudo Tuto | Soutien Scolaire en Ligne</title>
+  <title>Tudo Tuto | Excellence Scolaire</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== Variables CSS ===== */
     :root {
-      --primary: #2D6A4F;    /* Vert forêt profond */
-      --secondary: #40916C;  /* Vert moyen */
-      --accent: #D8F3DC;     /* Vert très clair (menthe) */
-      --bg-color: #FAFAF9;   /* Blanc cassé / Crème très léger */
-      --text-dark: #1F2937;  /* Gris très foncé */
-      --text-light: #4B5563; /* Gris moyen */
+      --primary: #2D6A4F;
+      --secondary: #40916C;
+      --accent: #D8F3DC;
+      --bg: #FAFAF9;
       --white: #ffffff;
-      --shadow: 0 4px 20px rgba(0,0,0,0.05);
-      --radius: 12px;
+      --text: #1F2937;
     }
 
-    /* ===== Global ===== */
-    * { box-sizing: border-box; }
-    
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-dark);
-      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    h1, h2, h3 {
-      font-family: 'Poppins', sans-serif;
-      margin-top: 0;
-      color: var(--primary);
-    }
-
-    a { text-decoration: none; color: inherit; }
-    ul { padding-left: 20px; }
-
-    /* ===== Header (Glassmorphism) ===== */
+    /* ===== HEADER & LANG SWITCH ===== */
     header {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 15px 5%;
+      padding: 10px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: sticky; top: 0; z-index: 1000;
       border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* Simulation d'un logo si l'image manque */
-    .logo-circle {
-      width: 35px; height: 35px;
-      background: var(--primary);
-      color: white;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-    }
-
-    .desktop-nav {
-      display: none; /* Caché sur mobile */
-    }
-
-    .desktop-nav a {
-      margin-left: 30px;
-      font-weight: 500;
-      color: var(--text-light);
-      transition: color 0.3s;
-    }
-    .desktop-nav a:hover { color: var(--primary); }
-
-    .menu-btn {
-      font-size: 28px;
-      cursor: pointer;
-      color: var(--primary);
-      display: block;
-    }
-
-    /* ===== Mobile Drawer ===== */
-    #drawer {
-      position: fixed;
-      right: -280px;
-      top: 0;
-      width: 280px;
-      height: 100%;
-      background: var(--white);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      padding: 80px 30px;
-      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-    }
+    .logo-container { display: flex; align-items: center; gap: 15px; }
     
-    #drawer.show { transform: translateX(-280px); }
+    /* Le Canvas pour l'animation des billes */
+    #logoCanvas {
+      width: 50px; height: 50px;
+      cursor: pointer;
+    }
 
-    #drawer a {
-      color: var(--text-dark);
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+
+    .lang-btn {
+      background: var(--accent);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
       font-weight: 600;
-      margin: 15px 0;
-      font-size: 18px;
-      border-bottom: 1px solid transparent;
+      font-size: 0.8em;
       transition: 0.3s;
     }
-    
-    #drawer a:hover { color: var(--primary); padding-left: 10px; }
-    
-    /* Overlay sombre quand le menu est ouvert */
-    #overlay {
-      position: fixed; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.3);
-      z-index: 998;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    #overlay.show { opacity: 1; pointer-events: all; }
+    .lang-btn:hover { background: var(--primary); color: white; }
 
-    /* ===== Hero Section ===== */
+    /* ===== HERO SECTION ===== */
     .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 85vh;
+      padding: 100px 5% 60px;
       text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, var(--bg-color) 0%, #E8F5E9 100%);
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(180deg, #E8F5E9 0%, var(--bg) 100%);
     }
 
-    .hero h1 {
-      font-size: clamp(2.5em, 5vw, 4em); /* Taille responsive */
-      line-height: 1.2;
-      margin-bottom: 20px;
-      color: #1a3c34;
-    }
-    
-    .hero p {
-      font-size: 1.25em;
-      color: var(--text-light);
-      max-width: 600px;
-      margin-bottom: 40px;
-    }
+    .hero h1 { font-family: 'Poppins'; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--primary); margin-bottom: 20px; }
+    .hero p { max-width: 600px; margin: 0 auto 30px; font-size: 1.2rem; color: #4B5563; }
 
-    .btn-cta { 
-      background: var(--primary); 
-      color: white; 
-      padding: 16px 32px; 
-      border-radius: 50px; 
-      font-weight: 600;
-      font-size: 1.1em;
-      box-shadow: 0 10px 25px rgba(45, 106, 79, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    .badge {
       display: inline-block;
-    }
-    
-    .btn-cta:hover { 
-      background: var(--secondary);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(45, 106, 79, 0.4);
-    }
-
-    /* ===== Sections Générales ===== */
-    section {
-      padding: 80px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    .section-header h2 { font-size: 2.5em; margin-bottom: 10px;}
-    .section-header span { color: var(--secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9em;}
-
-    /* ===== Accordéons Modernes ===== */
-    .accordion-item {
-      background: var(--white);
-      border-radius: var(--radius);
+      background: #FFD700;
+      color: #000;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.9rem;
       margin-bottom: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
-    .accordion-header {
-      padding: 25px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      font-size: 1.2em;
-      color: var(--primary);
-      user-select: none;
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
-    .accordion-header:hover { background: #fdfdfd; }
-
-    /* Icône + / - animée */
-    .icon {
-      width: 24px; height: 24px; position: relative;
-    }
-    .icon::before, .icon::after {
-      content: ''; position: absolute; background: var(--secondary);
-      border-radius: 2px; transition: 0.3s;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-    }
-    .icon::before { width: 14px; height: 2px; } /* Barre horizontale */
-    .icon::after { width: 2px; height: 14px; } /* Barre verticale */
-
-    /* État ouvert */
-    .accordion-item.active .icon::after { height: 0; } /* Devient un moins */
-    
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      background: #fafafa;
+    /* ===== SECTION MARKETING ===== */
+    .marketing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px 5%;
     }
 
-    .accordion-inner { padding: 0 25px 25px 25px; color: var(--text-light); }
-
-    /* ===== Carte Tarif ===== */
-    .price-card {
-      background: var(--white);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--accent);
-    }
-    .price { font-size: 3em; font-weight: 700; color: var(--primary); margin: 20px 0; }
-    .price span { font-size: 0.4em; color: var(--text-light); font-weight: 400; }
-    
-    .logos img { height: 40px; margin-top: 20px; opacity: 0.8; }
-
-    /* ===== Calendly & Footer ===== */
-    .calendly-wrapper {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
+    .m-card {
       background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border-top: 4px solid var(--primary);
     }
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-light);
-      font-size: 0.9em;
-      background: var(--white);
-      border-top: 1px solid rgba(0,0,0,0.05);
-    }
+    .m-card h3 { color: var(--primary); margin-top: 0; }
 
-    /* ===== Responsive Desktop ===== */
-    @media (min-width: 768px) {
-      .menu-btn { display: none; }
-      .desktop-nav { display: block; }
-      
-      .hero { text-align: left; align-items: flex-start; padding-left: 10%; }
-      .hero h1 { max-width: 700px; }
-      
-      /* Petite décoration cercle CSS en fond desktop */
-      .hero::after {
-        content: '';
-        position: absolute;
-        right: -100px; top: 100px;
-        width: 500px; height: 500px;
-        background: var(--accent);
-        border-radius: 50%;
-        opacity: 0.5;
-        z-index: -1;
-      }
-    }
+    /* ===== CALENDLY & FOOTER ===== */
+    #book { padding: 60px 5%; text-align: center; }
+    .warning-text { font-size: 0.8rem; color: #999; margin-top: 20px; }
 
-    /* Bouton retour en haut */
-    #topBtn {
-      position: fixed; bottom: 30px; right: 30px;
-      background: var(--primary); color: white;
-      border: none; padding: 15px; border-radius: 50%;
-      cursor: pointer; display: none;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: 0.3s;
-    }
-    #topBtn:hover { transform: translateY(-5px); background: var(--secondary); }
+    /* Mobile Menu (Simplifié) */
+    .menu-toggle { font-size: 1.5rem; cursor: pointer; display: none; }
 
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .desktop-links { display: none; }
+    }
   </style>
 </head>
-
 <body>
 
-<div id="overlay" onclick="toggleDrawer()"></div>
-
 <header>
-  <div class="logo">
-    <div class="logo-circle">T</div>
-    Tudo Tuto
+  <div class="logo-container">
+    <canvas id="logoCanvas"></canvas>
+    <span style="font-family: 'Poppins'; font-size: 1.2rem; font-weight: bold; color: var(--primary);">Tudo Tuto</span>
   </div>
   
-  <nav class="desktop-nav">
-    <a href="#about">À propos</a>
-    <a href="#services">Services</a>
-    <a href="#tarifs">Tarifs</a>
-    <a href="#book" style="color: var(--primary); font-weight: 700;">Réserver</a>
-  </nav>
-
-  <span class="menu-btn" onclick="toggleDrawer()">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-  </span>
+  <div class="nav-right">
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+    <div class="menu-toggle">☰</div>
+  </div>
 </header>
 
-<div id="drawer">
-  <div class="logo" style="margin-bottom: 40px;">Tudo Tuto</div>
-  <a href="#about" onclick="toggleDrawer()">À propos</a>
-  <a href="#services" onclick="toggleDrawer()">Services</a>
-  <a href="#tarifs" onclick="toggleDrawer()">Tarifs</a>
-  <a href="#book" onclick="toggleDrawer()">Book a call</a>
-</div>
-
 <div class="hero">
-  <h1>Booster la réussite scolaire de vos enfants.</h1>
-  <p>Nous accompagnons les élèves pour comprendre, pratiquer et gagner en autonomie. Une méthode prouvée par des étudiants en génie.</p>
-  <a class="btn-cta" href="#book">Réserver un appel gratuit</a>
+  <div class="badge" id="badgeText">🇨🇦 Soutien Scolaire Canada & USA 🇺🇸</div>
+  <h1 id="heroTitle">Réussir n'a jamais été aussi simple.</h1>
+  <p id="heroDesc">Un accompagnement sur mesure par des étudiants en génie pour transformer les difficultés en force.</p>
+  <a href="#book" class="lang-btn" style="padding: 15px 30px; font-size: 1rem;" id="ctaBtn">Réserver mon appel gratuit</a>
 </div>
 
-<section id="about">
-  <div class="section-header">
-    <span>Notre équipe</span>
-    <h2>Qui sommes-nous ?</h2>
+<section class="marketing-grid">
+  <div class="m-card">
+    <h3 id="card1Title">Ingénierie de l'apprentissage</h3>
+    <p id="card1Desc">On n'apprend pas juste des formules, on apprend à réfléchir. Notre approche logique aide à comprendre le "pourquoi".</p>
   </div>
-  
-  <div class="accordion-item" onclick="toggleAccordion(this)">
-    <div class="accordion-header">
-      Étudiants ingénieurs certifiés
-      <div class="icon"></div>
-    </div>
-    <div class="accordion-content">
-      <div class="accordion-inner">
-        <p>Nous sommes un groupe d’étudiants en génie passionnés par l’enseignement. Certifiés en assistance scolaire, nous aimons aider les élèves à comprendre leurs cours et résoudre leurs exercices.</p>
-      </div>
-    </div>
+  <div class="m-card">
+    <h3 id="card2Title">Tranquillité d'esprit</h3>
+    <p id="card2Desc">Séances sur Teams, enregistrements disponibles et suivi rigoureux pour les parents. Sécurité maximale.</p>
   </div>
-
-  <div class="accordion-item" onclick="toggleAccordion(this)">
-    <div class="accordion-header">
-      Sécurité & Transparence
-      <div class="icon"></div>
-    </div>
-    <div class="accordion-content">
-      <div class="accordion-inner">
-        <p>Pour la tranquillité d’esprit des parents : une pièce d’identité peut être fournie sur demande et les séances peuvent être enregistrées et partagées.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="services" style="background: white; border-radius: 40px; margin: 40px auto; width: 95%;">
-  <div class="section-header">
-    <span>Méthodologie</span>
-    <h2>Comment ça marche ?</h2>
-    <p style="color: var(--text-light)">Nos séances se déroulent sur <strong>Teams</strong>.</p>
-  </div>
-
-  <div class="accordion-item" onclick="toggleAccordion(this)">
-    <div class="accordion-header">
-      Nos services en détail
-      <div class="icon"></div>
-    </div>
-    <div class="accordion-content">
-      <div class="accordion-inner">
-        <ul>
-          <li><strong>Aide aux devoirs :</strong> Déblocage rapide sur des exercices difficiles.</li>
-          <li><strong>Concepts clés :</strong> Explication simple et résumés pratiques.</li>
-          <li><strong>Organisation :</strong> Méthodologie et planification de la semaine.</li>
-          <li><strong>Pratique :</strong> Exercices étape par étape pour l'autonomie.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="tarifs">
-  <div class="section-header">
-    <span>Investissement</span>
-    <h2>Tarification simple</h2>
-  </div>
-
-  <div class="price-card">
-    <h3>Accompagnement régulier</h3>
-    <div class="price">50 $ <span>/ semaine</span></div>
-    <p>Pour 2h de cours par semaine</p>
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-    <p style="font-size: 0.9em; color: var(--text-light);">Paiement facile et sécurisé via Interac</p>
-    <div class="logos" style="font-weight: bold; color: #ffb600; font-style: italic;">
-       Interac <span style="color:black;">e-Transfer</span>
-    </div>
+  <div class="m-card">
+    <h3 id="card3Title">Focus Primaire/Secondaire</h3>
+    <p id="card3Desc">Nous spécialisons notre expertise pour les niveaux scolaires afin de garantir les meilleurs résultats. (Pas d'universitaire).</p>
   </div>
 </section>
 
 <section id="book">
-  <div class="section-header">
-    <h2>Réserver un créneau</h2>
-    <p>Choisissez le moment qui vous convient le mieux.</p>
-  </div>
-  
-  <div class="calendly-wrapper">
-    <div class="calendly-inline-widget" data-url="https://calendly.com/commercial-vitriweb/30min" style="min-width:320px;height:700px;"></div>
-  </div>
-  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <h2 id="bookTitle">Prêt à commencer ?</h2>
+  <div class="calendly-inline-widget" data-url="https://calendly.com/commercial-vitriweb/30min" style="min-width:320px;height:700px;"></div>
 </section>
 
 <footer>
-  <p>© 2026 Tudo Tuto. Tous droits réservés.</p>
+  <div style="text-align: center; padding: 40px; background: white;">
+    <p id="footerRefus" class="warning-text">Note : Services exclusifs au secteur primaire et secondaire au Canada/USA.</p>
+  </div>
 </footer>
 
-<button onclick="topFunction()" id="topBtn" title="Haut de page">↑</button>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <script>
-  // Drawer & Overlay toggle
-  function toggleDrawer() {
-    const drawer = document.getElementById("drawer");
-    const overlay = document.getElementById("overlay");
-    drawer.classList.toggle("show");
-    overlay.classList.toggle("show");
+/* ==========================
+   LOGIQUE DES LANGUES (FR/EN)
+   ========================== */
+let currentLang = 'fr';
+const texts = {
+  fr: {
+    badge: "🇨🇦 Soutien Scolaire Canada & USA 🇺🇸",
+    title: "Réussir n'a jamais été aussi simple.",
+    desc: "Un accompagnement sur mesure par des étudiants en génie pour transformer les difficultés en force.",
+    cta: "Réserver mon appel gratuit",
+    c1t: "Ingénierie de l'apprentissage",
+    c1d: "On n'apprend pas juste des formules, on apprend à réfléchir. Notre approche logique aide à comprendre le 'pourquoi'.",
+    c2t: "Tranquillité d'esprit",
+    c2d: "Séances sur Teams, enregistrements disponibles et suivi rigoureux. Sécurité maximale.",
+    c3t: "Focus Scolaire",
+    c3d: "Spécialistes Primaire & Secondaire. Nous ne prenons pas de dossiers universitaires.",
+    book: "Prêt à commencer ?",
+    refus: "Note : Services exclusifs au secteur primaire et secondaire au Canada/USA."
+  },
+  en: {
+    badge: "🇨🇦 Canada & USA Tutoring 🇺🇸",
+    title: "Success has never been easier.",
+    desc: "Tailored support from engineering students to turn challenges into strengths.",
+    cta: "Book my free call",
+    c1t: "Learning Engineering",
+    c1d: "We don't just teach formulas, we teach how to think. Our logical approach helps understand the 'why'.",
+    c2t: "Peace of Mind",
+    c2d: "Teams sessions, recordings available, and rigorous follow-ups. Maximum security.",
+    c3t: "School Focus",
+    c3d: "Primary & High School Specialists. We do not accept university-level students.",
+    book: "Ready to start?",
+    refus: "Note: Services exclusively for Primary and Secondary levels in Canada/USA."
   }
+};
 
-  // Accordion Logic avec animation classe
-  function toggleAccordion(element) {
-    // Si on veut fermer les autres quand on en ouvre un :
-    // document.querySelectorAll('.accordion-item').forEach(item => {
-    //   if(item !== element) {
-    //     item.classList.remove('active');
-    //     item.querySelector('.accordion-content').style.maxHeight = null;
-    //   }
-    // });
+function toggleLang() {
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
+  
+  const l = texts[currentLang];
+  document.getElementById('badgeText').innerText = l.badge;
+  document.getElementById('heroTitle').innerText = l.title;
+  document.getElementById('heroDesc').innerText = l.desc;
+  document.getElementById('ctaBtn').innerText = l.cta;
+  document.getElementById('card1Title').innerText = l.c1t;
+  document.getElementById('card1Desc').innerText = l.c1d;
+  document.getElementById('card2Title').innerText = l.c2t;
+  document.getElementById('card2Desc').innerText = l.c2d;
+  document.getElementById('card3Title').innerText = l.c3t;
+  document.getElementById('card3Desc').innerText = l.c3d;
+  document.getElementById('bookTitle').innerText = l.book;
+  document.getElementById('footerRefus').innerText = l.refus;
+}
 
-    element.classList.toggle('active');
-    var content = element.querySelector('.accordion-content');
-    
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
+/* ==========================
+   ANIMATION DES BILLES (CANVAS)
+   ========================== */
+const canvas = document.getElementById('logoCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 100; canvas.height = 100;
+
+let particles = [];
+const particleCount = 40;
+const targetPoints = [
+  // Forme simplifiée du "T"
+  {x: 50, y: 30}, {x: 35, y: 30}, {x: 65, y: 30}, // Barre du haut
+  {x: 50, y: 45}, {x: 50, y: 60}, {x: 50, y: 75}  // Barre verticale
+];
+
+class Particle {
+  constructor() {
+    this.reset();
   }
-
-  // Retour en haut
-  var topBtn = document.getElementById("topBtn");
-  window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      topBtn.style.display = "block";
-    } else {
-      topBtn.style.display = "none";
-    }
-  };
-
-  function topFunction() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.target = targetPoints[Math.floor(Math.random() * targetPoints.length)];
+    this.size = Math.random() * 4 + 2;
+    this.speed = 0.05 + Math.random() * 0.05;
   }
+  update() {
+    this.x += (this.target.x - this.x) * this.speed;
+    this.y += (this.target.y - this.y) * this.speed;
+  }
+  draw() {
+    ctx.fillStyle = '#2D6A4F';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+for(let i=0; i<particleCount; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Relancer l'éparpillement au clic sur le logo
+canvas.addEventListener('click', () => {
+  particles.forEach(p => {
+    p.x = Math.random() * canvas.width;
+    p.y = Math.random() * canvas.height;
+  });
+});
 </script>
 
 </body>
