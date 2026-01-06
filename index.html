@@ -1,482 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Tudo Tuto | L'Excellence Scolaire</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TudoTuto — Accueil</title>
   <style>
-    /* ===== PALETTE DE COULEURS ===== */
-    :root {
-      --primary: #2D6A4F;    /* Vert forêt */
-      --secondary: #40916C;  /* Vert feuille */
-      --beige: #F3E9DC;      /* Beige chaleureux */
-      --accent: #D8F3DC;     /* Menthe clair */
-      --white: #ffffff;
-      --text-dark: #1F2937;
-      --text-soft: #4B5563;
-      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    :root{
+      --primary:#0b5cff;
+      --muted:#6b7280;
+      --bg:#ffffff;
+      --card:#f8fafc;
     }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.6;color:#111827;background:var(--bg);margin:0}
+    header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid #e6edf3}
+    .brand{font-weight:700;color:var(--primary)}
+    nav{display:flex;gap:1rem;align-items:center}
+    a{color:inherit;text-decoration:none}
+    .btn{background:var(--primary);color:#fff;padding:.5rem .75rem;border-radius:6px;border:0;cursor:pointer}
 
-    /* ===== BASE ===== */
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--white);
-      color: var(--text-dark);
-      overflow-x: hidden; /* Empêche le scroll horizontal */
-    }
-    
-    h1, h2, h3 { font-family: 'Poppins', sans-serif; color: var(--primary); margin-top: 0; }
-    p { line-height: 1.6; color: var(--text-soft); }
-    a { text-decoration: none; color: inherit; transition: 0.3s; }
-    ul { padding-left: 20px; color: var(--text-soft); }
-    li { margin-bottom: 8px; }
+    /* Drawer */
+    .drawer-toggle{display:none}
+    .drawer-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .6rem;border-radius:6px;border:1px solid #e6edf3;background:#fff;cursor:pointer}
+    .drawer{position:fixed;top:0;left:0;bottom:0;width:280px;background:#fff;border-right:1px solid #e6edf3;transform:translateX(-110%);transition:transform .25s ease;z-index:60;padding:1rem}
+    .drawer.open{transform:translateX(0)}
+    .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.4);opacity:0;pointer-events:none;transition:opacity .2s}
+    .overlay.show{opacity:1;pointer-events:auto}
 
-    /* ===== HEADER & LOGO ANIMÉ ===== */
-    header {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 15px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky; top: 0; z-index: 1000;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    }
+    main{padding:2rem 1.25rem;max-width:1000px;margin:0 auto}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .card{background:var(--card);padding:1rem;border-radius:10px}
 
-    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    canvas { width: 40px; height: 40px; } /* Taille des billes */
-    .brand-name { font-weight: 700; font-size: 1.2rem; color: var(--primary); }
+    /* Price badge */
+    .price-badge{display:inline-block;font-weight:600;background:linear-gradient(180deg,rgba(11,92,255,0.08),rgba(11,92,255,0.02));color:var(--primary);padding:.25rem .5rem;border-radius:999px;font-size:.95rem;border:1px solid rgba(11,92,255,0.08);box-shadow:0 1px 0 rgba(11,92,255,0.03)}
+    .price-sub{color:var(--muted);font-weight:500;font-size:.9rem;margin-left:.5rem}
 
-    .nav-actions { display: flex; align-items: center; gap: 15px; }
+    /* Nous section */
+    #nous{margin-top:2rem;padding:1.25rem;border-radius:10px;background:#fff;border:1px solid #eef2f7}
+    footer{padding:1.5rem;border-top:1px solid #e6edf3;margin-top:3rem;text-align:center;color:var(--muted)}
 
-    /* Bouton Langue */
-    .lang-btn {
-      background: var(--beige);
-      color: var(--primary);
-      border: 1px solid var(--primary);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-    .lang-btn:hover { background: var(--primary); color: white; }
-
-    /* Menu Hamburger */
-    .menu-btn { font-size: 1.8rem; cursor: pointer; display: none; color: var(--primary); }
-
-    /* Desktop Menu */
-    .desktop-nav a { margin-left: 25px; font-weight: 500; font-size: 0.95rem; }
-    .desktop-nav a:hover { color: var(--secondary); }
-
-    /* ===== DRAWER MOBILE ===== */
-    #drawer {
-      position: fixed; top: 0; right: -300px;
-      width: 280px; height: 100vh;
-      background: var(--white);
-      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-      padding: 80px 30px;
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 999;
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    #drawer.open { right: 0; }
-    #drawer a { font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-    
-    /* Overlay sombre */
-    #overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 998;
-      display: none;
-    }
-    #overlay.open { display: block; }
-
-    /* ===== HERO SECTION (BEIGE) ===== */
-    .hero {
-      background: linear-gradient(135deg, var(--beige) 0%, #FFF 100%);
-      padding: 60px 5%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      min-height: 80vh; /* Prend presque tout l'écran */
-      justify-content: center;
-    }
-
-    .badge {
-      background: #FFD700; color: black;
-      padding: 6px 16px; border-radius: 50px;
-      font-size: 0.85rem; font-weight: bold;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
-    .hero p { max-width: 600px; margin-bottom: 30px; font-size: 1.1rem; }
-
-    .btn-main {
-      background: var(--primary); color: white;
-      padding: 16px 32px; border-radius: 50px;
-      font-weight: 600; font-size: 1rem;
-      box-shadow: 0 10px 20px rgba(45, 106, 79, 0.3);
-      display: inline-block;
-    }
-    .btn-main:hover { transform: translateY(-3px); background: var(--secondary); }
-
-    /* ===== SECTION IMAGE (VISUEL MAMAN/ENFANT) ===== */
-    .visual-section {
-      width: 100%;
-      max-width: 1000px;
-      margin: -50px auto 60px; /* Remonte sur la section hero */
-      padding: 0 20px;
-      position: relative;
-      z-index: 2;
-    }
-    .visual-section img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border: 4px solid white;
-    }
-
-    /* ===== MARKETING CARDS ===== */
-    .section-title { text-align: center; margin-bottom: 40px; padding: 0 20px; }
-    .section-title h2 { font-size: 2.2rem; }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: 0 auto 80px;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s;
-      border-top: 5px solid var(--secondary);
-    }
-    .card:hover { transform: translateY(-5px); }
-    .card h3 { font-size: 1.3rem; margin-bottom: 10px; }
-
-    /* ===== SERVICES (ACCORDÉON) ===== */
-    .details-section {
-      background: var(--beige); /* Fond beige pour couper */
-      padding: 80px 20px;
-    }
-    
-    .accordion { max-width: 800px; margin: 0 auto; }
-    
-    .acc-item {
-      background: white;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    .acc-header {
-      padding: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-      color: var(--primary);
-    }
-    
-    .acc-content {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.3s ease;
-      background: #fafafa;
-    }
-    .acc-body { padding: 20px; border-top: 1px solid #eee; }
-
-    /* ===== CALENDLY & FOOTER ===== */
-    .booking-section { padding: 80px 20px; text-align: center; }
-    
-    footer {
-      background: var(--primary);
-      color: var(--accent);
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.9rem;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .menu-btn { display: block; }
-      .desktop-nav { display: none; }
-      .hero { padding-top: 40px; }
-      .visual-section { margin-top: 0; } /* Ajustement mobile */
+    @media (max-width:720px){
+      .hero{flex-direction:column;align-items:flex-start}
+      nav{display:none}
+      .drawer-btn{display:inline-flex}
     }
   </style>
 </head>
 <body>
-
-<div id="overlay" onclick="toggleMenu()"></div>
-
-<header>
-  <div class="logo-area" onclick="explodeParticles()">
-    <canvas id="logoCanvas"></canvas>
-    <span class="brand-name">Tudo Tuto</span>
-  </div>
-
-  <nav class="desktop-nav">
-    <a href="#about" data-key="nav_about">À propos</a>
-    <a href="#details" data-key="nav_details">Services</a>
-    <a href="#book" data-key="nav_book">Réserver</a>
-  </nav>
-
-  <div class="nav-actions">
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-  </div>
-</header>
-
-<div id="drawer">
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <span class="brand-name">Menu</span>
-    <span onclick="toggleMenu()" style="cursor:pointer; font-size:1.5rem;">✕</span>
-  </div>
-  <a href="#about" onclick="toggleMenu()" data-key="nav_about">À propos</a>
-  <a href="#details" onclick="toggleMenu()" data-key="nav_details">Services</a>
-  <a href="#book" onclick="toggleMenu()" data-key="nav_book">Réserver</a>
-</div>
-
-<section class="hero">
-  <div class="badge" data-key="hero_badge">🇨🇦 Expertise Canada & USA 🇺🇸</div>
-  <h1 data-key="hero_title">L'ingénierie au service<br>de la réussite scolaire.</h1>
-  <p data-key="hero_desc">Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.</p>
-  <a href="#book" class="btn-main" data-key="hero_cta">Booker mon appel gratuit (15 min)</a>
-</section>
-
-<section class="visual-section">
-  <img src="https://images.unsplash.com/photo-1577896332210-2dc012c41808?q=80&w=1000&auto=format&fit=crop" alt="Enfant et tuteur">
-</section>
-
-<section id="about" class="grid">
-  <div class="card">
-    <h3 data-key="card1_title">🧠 Esprit d'Ingénieur</h3>
-    <p data-key="card1_desc">Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.</p>
-  </div>
-  <div class="card">
-    <h3 data-key="card2_title">🔒 100% Sécurisé</h3>
-    <p data-key="card2_desc">Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.</p>
-  </div>
-  <div class="card">
-    <h3 data-key="card3_title">🎯 Cible Précise</h3>
-    <p data-key="card3_desc">Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).</p>
-  </div>
-</section>
-
-<section id="details" class="details-section">
-  <div class="section-title">
-    <h2 data-key="details_title">Comment nous aidons votre enfant ?</h2>
-    <p data-key="details_sub">Une approche complète, pas juste de l'aide aux devoirs.</p>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-item">
-      <div class="acc-header" onclick="toggleAcc(this)">
-        <span data-key="acc1_title">📚 Aide aux devoirs & Blocs</span>
-        <span>+</span>
-      </div>
-      <div class="acc-content"><div class="acc-body" data-key="acc1_desc">
-        Votre enfant bloque sur un exercice ? Nous débloquons la situation, expliquons la règle et lui faisons pratiquer un exercice similaire pour valider.
-      </div></div>
+  <header>
+    <div class="brand">TudoTuto</div>
+    <nav aria-label="Navigation principale">
+      <a href="#">Accueil</a>
+      <a href="#nous">Nous</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex;gap:.75rem;align-items:center">
+      <button class="drawer-btn" id="openDrawer" aria-controls="drawer" aria-expanded="false">☰ Menu</button>
+      <button class="btn">Se connecter</button>
     </div>
-    
-    <div class="acc-item">
-      <div class="acc-header" onclick="toggleAcc(this)">
-        <span data-key="acc2_title">🗓️ Organisation & Méthodologie</span>
-        <span>+</span>
+  </header>
+
+  <!-- Drawer (off-canvas) -->
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <button id="closeDrawer" aria-label="Fermer" style="background:none;border:0;font-size:1.25rem;cursor:pointer">✕</button>
+    <nav style="margin-top:1rem;display:flex;flex-direction:column;gap:.5rem">
+      <a href="#">Accueil</a>
+      <a href="#nous">Nous</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Apprendre, progresser, exceller</h1>
+        <p style="color:var(--muted)">Des cours particuliers et ateliers pour développer vos compétences — à votre rythme.</p>
+        <div style="margin-top:1rem">
+          <span class="price-badge">$50 / semaine — 2h</span>
+          <span class="price-sub">(Prix indicatif)</span>
+        </div>
       </div>
-      <div class="acc-content"><div class="acc-body" data-key="acc2_desc">
-        Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces inspirées du génie.
-      </div></div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-header" onclick="toggleAcc(this)">
-        <span data-key="acc3_title">🚀 Préparation aux Examens</span>
-        <span>+</span>
+      <div class="card">
+        <strong>Prochain atelier</strong>
+        <p style="margin:.5rem 0;color:var(--muted)">Introduction au développement web — places limitées</p>
+        <button class="btn">S'inscrire</button>
       </div>
-      <div class="acc-content"><div class="acc-body" data-key="acc3_desc">
-        Ne plus jamais réviser à la dernière minute. Nous créons des fiches de révision et des simulations pour arriver confiant le jour J.
-      </div></div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="book" class="booking-section">
-  <h2 data-key="book_title">Discutons de ses besoins</h2>
-  <p data-key="book_desc">Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon "fit" pour votre enfant.</p>
-  
-  <div class="calendly-inline-widget" data-url="https://calendly.com/commercial-vitriweb/30min" style="min-width:320px;height:700px;"></div>
-  
-  <p style="margin-top:20px; font-size:0.8rem; color:#888;">* Uniquement pour Primaire & Secondaire (Canada/USA).</p>
-</section>
+    <!-- Nous section -->
+    <section id="nous">
+      <h2>Nous</h2>
+      <p>
+        TudoTuto est une équipe dédiée à l'accompagnement pédagogique. Nous proposons des cours adaptés, des ateliers pratiques
+        et un suivi personnalisé pour aider chaque apprenant à atteindre ses objectifs.
+      </p>
+      <p style="color:var(--muted)">Notre approche est humaine, inclusive et axée sur la pratique.</p>
+    </section>
 
-<footer>
-  <p>© 2026 Tudo Tuto. Engineering better grades.</p>
-</footer>
+    <!-- Other content -->
+    <section id="services" style="margin-top:1.5rem">
+      <h3>Services</h3>
+      <ul>
+        <li>Cours particuliers</li>
+        <li>Ateliers intensifs</li>
+        <li>Coaching de projet</li>
+      </ul>
+    </section>
 
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </main>
 
-<script>
-  /* ===== 1. TEXTES MULTILINGUES (FR/EN) ===== */
-  const translations = {
-    fr: {
-      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver",
-      hero_badge: "🇨🇦 Expertise Canada & USA 🇺🇸",
-      hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
-      hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
-      hero_cta: "Booker mon appel gratuit (15 min)",
-      card1_title: "🧠 Esprit d'Ingénieur",
-      card1_desc: "Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.",
-      card2_title: "🔒 100% Sécurisé",
-      card2_desc: "Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.",
-      card3_title: "🎯 Cible Précise",
-      card3_desc: "Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).",
-      details_title: "Comment nous aidons votre enfant ?",
-      details_sub: "Une approche complète, pas juste de l'aide aux devoirs.",
-      acc1_title: "📚 Aide aux devoirs & Blocs",
-      acc1_desc: "Votre enfant bloque sur un exercice ? Nous débloquons la situation, expliquons la règle et lui faisons pratiquer un exercice similaire pour valider.",
-      acc2_title: "🗓️ Organisation & Méthodologie",
-      acc2_desc: "Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces.",
-      acc3_title: "🚀 Préparation aux Examens",
-      acc3_desc: "Ne plus jamais réviser à la dernière minute. Nous créons des fiches de révision et des simulations pour arriver confiant le jour J.",
-      book_title: "Discutons de ses besoins",
-      book_desc: "Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon 'fit' pour votre enfant."
-    },
-    en: {
-      nav_about: "About", nav_details: "Services", nav_book: "Book",
-      hero_badge: "🇨🇦 Canada & USA Expertise 🇺🇸",
-      hero_title: "Engineering Logic<br>for Academic Success.",
-      hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
-      hero_cta: "Book my free call (15 min)",
-      card1_title: "🧠 Engineering Mindset",
-      card1_desc: "We don't just teach by rote. We teach your child to think, structure their thoughts, and solve complex problems.",
-      card2_title: "🔒 100% Secure",
-      card2_desc: "Teams sessions. Option to record sessions for parental peace of mind and student review.",
-      card3_title: "🎯 Focused Target",
-      card3_desc: "Primary & High School Specialists. We focus on solid academic foundations (No University level).",
-      details_title: "How we help your child?",
-      details_sub: "A complete approach, not just homework help.",
-      acc1_title: "📚 Homework Help & Blocks",
-      acc1_desc: "Stuck on an exercise? We unblock the situation, explain the rule, and practice with similar problems to validate understanding.",
-      acc2_title: "🗓️ Organization & Methods",
-      acc2_desc: "An organized student succeeds better. We help plan the study week and adopt efficient work methods.",
-      acc3_title: "🚀 Exam Prep",
-      acc3_desc: "No more last-minute cramming. We create review sheets and simulations to arrive confident on D-Day.",
-      book_title: "Let's discuss needs",
-      book_desc: "Book a free 15-min slot to see if we are the right fit for your child."
-    }
-  };
+  <footer>
+    © 2026 TudoTuto — Tous droits réservés
+  </footer>
 
-  let currentLang = 'fr';
-
-  function toggleLang() {
-    currentLang = currentLang === 'fr' ? 'en' : 'fr';
-    document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
-    
-    const elements = document.querySelectorAll('[data-key]');
-    elements.forEach(el => {
-      const key = el.getAttribute('data-key');
-      if (translations[currentLang][key]) {
-        el.innerHTML = translations[currentLang][key]; // innerHTML pour garder les <br>
-      }
-    });
+  <!-- Translation keys (nouveaux) -->
+  <script id="i18n-keys" type="application/json">
+  {
+    "nous.title": "Nous",
+    "nous.description": "TudoTuto est une équipe dédiée à l'accompagnement pédagogique.",
+    "price.badge": "$50 / semaine — 2h",
+    "footer.copyright": "© 2026 TudoTuto — Tous droits réservés",
+    "nav.menu": "Menu",
+    "btn.signup": "S'inscrire"
   }
+  </script>
 
-  /* ===== 2. DRAWER MENU ===== */
-  function toggleMenu() {
+  <script>
+    // Simple drawer behaviour
     const drawer = document.getElementById('drawer');
     const overlay = document.getElementById('overlay');
-    drawer.classList.toggle('open');
-    overlay.classList.toggle('open');
-  }
+    const open = document.getElementById('openDrawer');
+    const close = document.getElementById('closeDrawer');
 
-  /* ===== 3. ACCORDÉON ===== */
-  function toggleAcc(header) {
-    const content = header.nextElementSibling;
-    const isIsOpen = content.style.maxHeight;
-    
-    // Fermer tous les autres (optionnel)
-    document.querySelectorAll('.acc-content').forEach(c => c.style.maxHeight = null);
-    
-    if (!isIsOpen) {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  }
+    function openDrawer(){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');overlay.classList.add('show');overlay.hidden=false;open.setAttribute('aria-expanded','true')}
+    function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');overlay.classList.remove('show');overlay.hidden=true;open.setAttribute('aria-expanded','false')}
 
-  /* ===== 4. ANIMATION BILLES (CANVAS) ===== */
-  const canvas = document.getElementById('logoCanvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = 80; canvas.height = 80; // Résolution interne
+    open.addEventListener('click',openDrawer);
+    close.addEventListener('click',closeDrawer);
+    overlay.addEventListener('click',closeDrawer);
 
-  let particles = [];
-  // Points cible pour former un "T"
-  const targetPoints = [
-    {x: 40, y: 20}, {x: 30, y: 20}, {x: 50, y: 20}, {x: 20, y: 20}, {x: 60, y: 20}, // Barre haut
-    {x: 40, y: 30}, {x: 40, y: 40}, {x: 40, y: 50}, {x: 40, y: 60} // Barre verticale
-  ];
-
-  class Particle {
-    constructor() {
-      this.reset(true);
-    }
-    reset(randomStart = false) {
-      if(randomStart) {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-      }
-      this.target = targetPoints[Math.floor(Math.random() * targetPoints.length)];
-      this.vx = 0; this.vy = 0;
-      this.size = 2.5;
-    }
-    update() {
-      // Physique douce (easing)
-      this.x += (this.target.x - this.x) * 0.08;
-      this.y += (this.target.y - this.y) * 0.08;
-    }
-    draw() {
-      ctx.fillStyle = '#2D6A4F';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  // Créer 40 billes
-  for(let i=0; i<40; i++) particles.push(new Particle());
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  function explodeParticles() {
-    particles.forEach(p => {
-      p.x = Math.random() * canvas.width;
-      p.y = Math.random() * canvas.height;
-    });
-  }
-</script>
-
+    // Optionally load translations from the embedded JSON
+    try{
+      const i18n = JSON.parse(document.getElementById('i18n-keys').textContent || '{}');
+      // Example: set nav menu aria-label using translation
+      open.setAttribute('aria-label', i18n['nav.menu'] || 'Menu');
+    }catch(e){/* ignore */}
+  </script>
 </body>
 </html>
