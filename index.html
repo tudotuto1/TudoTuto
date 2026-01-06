@@ -29,7 +29,7 @@
       font-family: 'Inter', sans-serif;
       background: var(--white);
       color: var(--text-dark);
-      overflow-x: hidden; /* Empêche le scroll horizontal */
+      overflow-x: hidden;
     }
     
     h1, h2, h3 { font-family: 'Poppins', sans-serif; color: var(--primary); margin-top: 0; }
@@ -38,7 +38,7 @@
     ul { padding-left: 20px; color: var(--text-soft); }
     li { margin-bottom: 8px; }
 
-    /* ===== HEADER & LOGO ANIMÉ ===== */
+    /* ===== HEADER ===== */
     header {
       background: rgba(255, 255, 255, 0.95);
       padding: 15px 5%;
@@ -50,12 +50,11 @@
     }
 
     .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    canvas { width: 40px; height: 40px; } /* Taille des billes */
+    canvas { width: 40px; height: 40px; }
     .brand-name { font-weight: 700; font-size: 1.2rem; color: var(--primary); }
 
     .nav-actions { display: flex; align-items: center; gap: 15px; }
 
-    /* Bouton Langue */
     .lang-btn {
       background: var(--beige);
       color: var(--primary);
@@ -68,10 +67,8 @@
     }
     .lang-btn:hover { background: var(--primary); color: white; }
 
-    /* Menu Hamburger */
     .menu-btn { font-size: 1.8rem; cursor: pointer; display: none; color: var(--primary); }
 
-    /* Desktop Menu */
     .desktop-nav a { margin-left: 25px; font-weight: 500; font-size: 0.95rem; }
     .desktop-nav a:hover { color: var(--secondary); }
 
@@ -89,7 +86,6 @@
     #drawer.open { right: 0; }
     #drawer a { font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid #eee; padding-bottom: 10px; }
     
-    /* Overlay sombre */
     #overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.4);
@@ -98,7 +94,7 @@
     }
     #overlay.open { display: block; }
 
-    /* ===== HERO SECTION (BEIGE) ===== */
+    /* ===== HERO SECTION ===== */
     .hero {
       background: linear-gradient(135deg, var(--beige) 0%, #FFF 100%);
       padding: 60px 5%;
@@ -106,7 +102,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      min-height: 80vh; /* Prend presque tout l'écran */
+      min-height: 80vh;
       justify-content: center;
     }
 
@@ -120,7 +116,6 @@
     }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-    /* Price badge discret */
     .price-badge {
       display: inline-block;
       background: #fff8e1;
@@ -134,7 +129,6 @@
       margin-top: 12px;
     }
 
-    /* Small about section styles (non intrusive) */
     .about-section { padding: 36px 18px; background: #f9f9fb; border-radius: 8px; max-width: 980px; margin: 32px auto; color: var(--text-dark); }
 
     .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
@@ -149,11 +143,10 @@
     }
     .btn-main:hover { transform: translateY(-3px); background: var(--secondary); }
 
-    /* ===== SECTION IMAGE (VISUEL MAMAN/ENFANT) ===== */
     .visual-section {
       width: 100%;
       max-width: 1000px;
-      margin: -50px auto 60px; /* Remonte sur la section hero */
+      margin: -50px auto 60px;
       padding: 0 20px;
       position: relative;
       z-index: 2;
@@ -165,10 +158,6 @@
       border: 4px solid white;
     }
 
-    /* ===== MARKETING CARDS ===== */
-    .section-title { text-align: center; margin-bottom: 40px; padding: 0 20px; }
-    .section-title h2 { font-size: 2.2rem; }
-    
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -189,9 +178,8 @@
     .card:hover { transform: translateY(-5px); }
     .card h3 { font-size: 1.3rem; margin-bottom: 10px; }
 
-    /* ===== SERVICES (ACCORDÉON) ===== */
     .details-section {
-      background: var(--beige); /* Fond beige pour couper */
+      background: var(--beige);
       padding: 80px 20px;
     }
     
@@ -220,7 +208,6 @@
     }
     .acc-body { padding: 20px; border-top: 1px solid #eee; }
 
-    /* ===== CALENDLY & FOOTER ===== */
     .booking-section { padding: 80px 20px; text-align: center; }
     
     footer {
@@ -231,12 +218,11 @@
       font-size: 0.9rem;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .menu-btn { display: block; }
       .desktop-nav { display: none; }
       .hero { padding-top: 40px; }
-      .visual-section { margin-top: 0; } /* Ajustement mobile */
+      .visual-section { margin-top: 0; }
     }
   </style>
 </head>
@@ -254,7 +240,7 @@
     <a href="#about" data-key="nav_about">À propos</a>
     <a href="#details" data-key="nav_details">Services</a>
     <a href="#book" data-key="nav_book">Réserver</a>
-    <a href="#nous">Nous</a>
+    <a href="#nous" data-key="nav_us">Nous</a>
   </nav>
 
   <div class="nav-actions">
@@ -271,7 +257,7 @@
   <a href="#about" onclick="toggleMenu()" data-key="nav_about">À propos</a>
   <a href="#details" onclick="toggleMenu()" data-key="nav_details">Services</a>
   <a href="#book" onclick="toggleMenu()" data-key="nav_book">Réserver</a>
-  <a href="#nous" onclick="toggleMenu()">Nous</a>
+  <a href="#nous" onclick="toggleMenu()" data-key="nav_us">Nous</a>
 </div>
 
 <section class="hero">
@@ -283,7 +269,7 @@
 </section>
 
 <section class="visual-section">
-  <img src="hero-image.pnj.jpg" alt="Enfant et tuteur">
+  <img src="hero-image.png" alt="Enfant et tuteur">
 </section>
 
 <section id="about" class="grid">
@@ -301,11 +287,10 @@
   </div>
 </section>
 
-<!-- Section Nous (ajout demandé) -->
 <section id="nous" class="about-section">
   <div>
-    <h2>Nous</h2>
-    <p>Passionnés par la transmission des connaissances, nous sommes un collectif d’étudiants en ingénierie. En plus de notre cursus scientifique, nous sommes certifiés en soutien pédagogique et en aide à l'enseignement.</p>
+    <h2 data-key="us_title">Nous</h2>
+    <p data-key="us_desc">Passionnés par la transmission des connaissances, nous sommes un collectif d’étudiants en ingénierie. En plus de notre cursus scientifique, nous sommes certifiés en soutien pédagogique et en aide à l'enseignement.</p>
   </div>
 </section>
 
@@ -364,10 +349,10 @@
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <script>
-  /* ===== 1. TEXTES MULTILINGUES (FR/EN) ===== */
+  /* ===== 1. TEXTES MULTILINGUES ===== */
   const translations = {
     fr: {
-      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver",
+      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver", nav_us: "Nous",
       hero_badge: "🇨🇦 Expertise Canada & USA 🇺🇸",
       hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
       hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
@@ -378,6 +363,8 @@
       card2_desc: "Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.",
       card3_title: "🎯 Cible Précise",
       card3_desc: "Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).",
+      us_title: "Nous",
+      us_desc: "Passionnés par la transmission des connaissances, nous sommes un collectif d’étudiants en ingénierie. En plus de notre cursus scientifique, nous sommes certifiés en soutien pédagogique et en aide à l'enseignement.",
       details_title: "Comment nous aidons votre enfant ?",
       details_sub: "Une approche complète, pas juste de l'aide aux devoirs.",
       acc1_title: "📚 Aide aux devoirs & Blocs",
@@ -390,7 +377,7 @@
       book_desc: "Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon 'fit' pour votre enfant."
     },
     en: {
-      nav_about: "About", nav_details: "Services", nav_book: "Book",
+      nav_about: "About", nav_details: "Services", nav_book: "Book", nav_us: "About Us",
       hero_badge: "🇨🇦 Canada & USA Expertise 🇺🇸",
       hero_title: "Engineering Logic<br>for Academic Success.",
       hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
@@ -401,6 +388,8 @@
       card2_desc: "Teams sessions. Option to record sessions for parental peace of mind and student review.",
       card3_title: "🎯 Focused Target",
       card3_desc: "Primary & High School Specialists. We focus on solid academic foundations (No University level).",
+      us_title: "About Us",
+      us_desc: "Passionate about sharing knowledge, we are a collective of engineering students. In addition to our scientific studies, we are certified in educational support and teaching assistance.",
       details_title: "How we help your child?",
       details_sub: "A complete approach, not just homework help.",
       acc1_title: "📚 Homework Help & Blocks",
@@ -424,12 +413,19 @@
     elements.forEach(el => {
       const key = el.getAttribute('data-key');
       if (translations[currentLang][key]) {
-        el.innerHTML = translations[currentLang][key]; // innerHTML pour garder les <br>
+        el.innerHTML = translations[currentLang][key];
       }
     });
+
+    // MISE À JOUR CALENDLY
+    const calendlyDiv = document.querySelector('.calendly-inline-widget');
+    const baseUrl = calendlyDiv.getAttribute('data-url').split('?')[0];
+    const langParam = currentLang === 'fr' ? 'fr' : 'en';
+    calendlyDiv.setAttribute('data-url', baseUrl + "?locale=" + langParam);
+    calendlyDiv.innerHTML = ""; 
+    Calendly.initInlineWidget({ url: calendlyDiv.getAttribute('data-url'), parentElement: calendlyDiv });
   }
 
-  /* ===== 2. DRAWER MENU ===== */
   function toggleMenu() {
     const drawer = document.getElementById('drawer');
     const overlay = document.getElementById('overlay');
@@ -437,73 +433,34 @@
     overlay.classList.toggle('open');
   }
 
-  /* ===== 3. ACCORDÉON ===== */
   function toggleAcc(header) {
     const content = header.nextElementSibling;
     const isIsOpen = content.style.maxHeight;
-    
-    // Fermer tous les autres (optionnel)
     document.querySelectorAll('.acc-content').forEach(c => c.style.maxHeight = null);
-    
     if (!isIsOpen) {
       content.style.maxHeight = content.scrollHeight + "px";
     }
   }
 
-  /* ===== 4. ANIMATION BILLES (CANVAS) ===== */
   const canvas = document.getElementById('logoCanvas');
   const ctx = canvas.getContext('2d');
-  canvas.width = 80; canvas.height = 80; // Résolution interne
-
+  canvas.width = 80; canvas.height = 80;
   let particles = [];
-  // Points cible pour former un "T"
-  const targetPoints = [
-    {x: 40, y: 20}, {x: 30, y: 20}, {x: 50, y: 20}, {x: 20, y: 20}, {x: 60, y: 20}, // Barre haut
-    {x: 40, y: 30}, {x: 40, y: 40}, {x: 40, y: 50}, {x: 40, y: 60} // Barre verticale
-  ];
-
+  const targetPoints = [{x: 40, y: 20}, {x: 30, y: 20}, {x: 50, y: 20}, {x: 20, y: 20}, {x: 60, y: 20}, {x: 40, y: 30}, {x: 40, y: 40}, {x: 40, y: 50}, {x: 40, y: 60}];
   class Particle {
-    constructor() {
-      this.reset(true);
-    }
+    constructor() { this.reset(true); }
     reset(randomStart = false) {
-      if(randomStart) {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-      }
+      if(randomStart) { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; }
       this.target = targetPoints[Math.floor(Math.random() * targetPoints.length)];
-      this.vx = 0; this.vy = 0;
-      this.size = 2.5;
+      this.vx = 0; this.vy = 0; this.size = 2.5;
     }
-    update() {
-      // Physique douce (easing)
-      this.x += (this.target.x - this.x) * 0.08;
-      this.y += (this.target.y - this.y) * 0.08;
-    }
-    draw() {
-      ctx.fillStyle = '#2D6A4F';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    update() { this.x += (this.target.x - this.x) * 0.08; this.y += (this.target.y - this.y) * 0.08; }
+    draw() { ctx.fillStyle = '#2D6A4F'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
   }
-
-  // Créer 40 billes
   for(let i=0; i<40; i++) particles.push(new Particle());
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
+  function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
   animate();
-
-  function explodeParticles() {
-    particles.forEach(p => {
-      p.x = Math.random() * canvas.width;
-      p.y = Math.random() * canvas.height;
-    });
-  }
+  function explodeParticles() { particles.forEach(p => { p.x = Math.random() * canvas.width; p.y = Math.random() * canvas.height; }); }
 </script>
 
 </body>
