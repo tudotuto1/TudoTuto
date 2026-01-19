@@ -224,6 +224,94 @@
       .hero { padding-top: 40px; }
       .visual-section { margin-top: 0; }
     }
+ /* --- SECTION NIVEAUX --- */
+.levels-section {
+    padding: 80px 20px;
+    background-color: #f9f9f9; /* Fond très léger pour détacher les cartes blanches */
+    text-align: center;
+}
+
+.levels-section h2 {
+    color: #2C3E50; /* Ton vert foncé ou noir */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.levels-section .subtitle {
+    color: #666;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.levels-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.level-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    width: 300px; /* Largeur fixe pour uniformité */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.4s ease; /* C'est ça qui gère la douceur de l'effet */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+/* L'EFFET FLOTTANT */
+.level-card:hover {
+    transform: translateY(-15px); /* Monte la carte de 15px */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12); /* L'ombre grandit */
+}
+
+.level-card h3 {
+    font-size: 1.8rem;
+    color: #2C3E50;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.level-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.level-card li {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+/* Petit point vert devant chaque item de liste (optionnel, fait joli) */
+.level-card li::before {
+    content: "•";
+    color: #27ae60; /* Ton vert */
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.level-card .card-image img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    margin-top: auto; /* Pousse l'image vers le bas */
+}
   </style>
 </head>
 <body>
@@ -332,7 +420,66 @@
     </div>
   </div>
 </section>
+  
+<section id="niveaux" class="levels-section">
+    <div class="container">
+        <h2 data-fr="Du tutorat pour tous les niveaux" data-en="Tutoring for All Levels">Du tutorat pour tous les niveaux</h2>
+        <p class="subtitle" data-fr="Que vous soyez au primaire, au secondaire ou au cégep, nos tuteurs s'adaptent." data-en="Whether you are in elementary, high school, or college, our tutors adapt to your needs.">Que vous soyez au primaire, au secondaire ou au cégep, nos tuteurs s'adaptent.</p>
 
+        <div class="levels-grid">
+            
+            <div class="level-card">
+                <div class="card-content">
+                    <h3 data-fr="Primaire" data-en="Elementary">Primaire</h3>
+                    <ul>
+                        <li><span data-fr="1ère année" data-en="Grade 1">1ère année</span></li>
+                        <li><span data-fr="2e année" data-en="Grade 2">2e année</span></li>
+                        <li><span data-fr="3e année" data-en="Grade 3">3e année</span></li>
+                        <li><span data-fr="4e année" data-en="Grade 4">4e année</span></li>
+                        <li><span data-fr="5e année" data-en="Grade 5">5e année</span></li>
+                        <li><span data-fr="6e année" data-en="Grade 6">6e année</span></li>
+                    </ul>
+                </div>
+                <div class="card-image">
+                    <img src="ton-image-enfant.png" alt="Primaire"> 
+                </div>
+            </div>
+
+            <div class="level-card">
+                <div class="card-content">
+                    <h3 data-fr="Secondaire" data-en="High School">Secondaire</h3>
+                    <ul>
+                        <li><span data-fr="Secondaire 1" data-en="Grade 7">Secondaire 1</span></li>
+                        <li><span data-fr="Secondaire 2" data-en="Grade 8">Secondaire 2</span></li>
+                        <li><span data-fr="Secondaire 3" data-en="Grade 9">Secondaire 3</span></li>
+                        <li><span data-fr="Secondaire 4 SN et CST" data-en="Grade 10 (SN & CST)">Secondaire 4 SN et CST</span></li>
+                        <li><span data-fr="Secondaire 5 SN et CST" data-en="Grade 11 (SN & CST)">Secondaire 5 SN et CST</span></li>
+                    </ul>
+                </div>
+                <div class="card-image">
+                    <img src="ton-image-sac.png" alt="Secondaire">
+                </div>
+            </div>
+
+            <div class="level-card">
+                <div class="card-content">
+                    <h3 data-fr="Cégep" data-en="College / CEGEP">Cégep</h3>
+                    <ul>
+                        <li><span data-fr="Calcul différentiel" data-en="Differential Calculus">Calcul différentiel</span></li>
+                        <li><span data-fr="Calcul intégral" data-en="Integral Calculus">Calcul intégral</span></li>
+                        <li><span data-fr="Algèbre linéaire" data-en="Linear Algebra">Algèbre linéaire</span></li>
+                        <li><span data-fr="Méthodes quantitatives" data-en="Quantitative Methods">Méthodes quantitatives</span></li>
+                    </ul>
+                </div>
+                <div class="card-image">
+                    <img src="ton-image-livres.png" alt="Cégep">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+  
 <section id="book" class="booking-section">
   <h2 data-key="book_title">Discutons de ses besoins</h2>
   <p data-key="book_desc">Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon "fit" pour votre enfant.</p>
@@ -461,6 +608,19 @@
   function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
   animate();
   function explodeParticles() { particles.forEach(p => { p.x = Math.random() * canvas.width; p.y = Math.random() * canvas.height; }); }
+// Fonction simple pour changer la langue (si tu ne l'as pas déjà)
+function changeLanguage(lang) {
+    const elements = document.querySelectorAll('[data-fr]');
+    
+    elements.forEach(el => {
+        if (lang === 'en') {
+            el.textContent = el.getAttribute('data-en');
+        } else {
+            el.textContent = el.getAttribute('data-fr');
+        }
+    });
+}
+// Exemple d'utilisation : appelle changeLanguage('en') quand on clique sur ton bouton Anglais.
 </script>
 
 </body>
