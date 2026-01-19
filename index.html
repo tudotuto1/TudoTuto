@@ -224,94 +224,94 @@
       .hero { padding-top: 40px; }
       .visual-section { margin-top: 0; }
     }
- /* --- SECTION NIVEAUX --- */
-.levels-section {
-    padding: 80px 20px;
-    background-color: #f9f9f9; /* Fond très léger pour détacher les cartes blanches */
-    text-align: center;
-}
 
-.levels-section h2 {
-    color: #2C3E50; /* Ton vert foncé ou noir */
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
+    /* --- SECTION NIVEAUX (AJOUTÉE) --- */
+    .levels-section {
+      padding: 80px 20px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
 
-.levels-section .subtitle {
-    color: #666;
-    margin-bottom: 50px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .levels-section h2 {
+      color: #2C3E50;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
 
-.levels-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    .levels-section .subtitle {
+      color: #666;
+      margin-bottom: 50px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-.level-card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    width: 300px; /* Largeur fixe pour uniformité */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: all 0.4s ease; /* C'est ça qui gère la douceur de l'effet */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-}
+    .levels-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-/* L'EFFET FLOTTANT */
-.level-card:hover {
-    transform: translateY(-15px); /* Monte la carte de 15px */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12); /* L'ombre grandit */
-}
+    .level-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      width: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
 
-.level-card h3 {
-    font-size: 1.8rem;
-    color: #2C3E50;
-    margin-bottom: 20px;
-    width: 100%;
-}
+    /* L'EFFET FLOTTANT */
+    .level-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
 
-.level-card ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
-    width: 100%;
-}
+    .level-card h3 {
+      font-size: 1.8rem;
+      color: #2C3E50;
+      margin-bottom: 20px;
+      width: 100%;
+    }
 
-.level-card li {
-    margin-bottom: 10px;
-    color: #555;
-    font-size: 1rem;
-    position: relative;
-    padding-left: 15px;
-}
+    .level-card ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 30px;
+      width: 100%;
+    }
 
-/* Petit point vert devant chaque item de liste (optionnel, fait joli) */
-.level-card li::before {
-    content: "•";
-    color: #27ae60; /* Ton vert */
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-}
+    .level-card li {
+      margin-bottom: 10px;
+      color: #555;
+      font-size: 1rem;
+      position: relative;
+      padding-left: 15px;
+    }
 
-.level-card .card-image img {
-    width: 120px;
-    height: auto;
-    object-fit: contain;
-    margin-top: auto; /* Pousse l'image vers le bas */
-}
+    .level-card li::before {
+      content: "•";
+      color: #27ae60;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .level-card .card-image img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-top: auto;
+    }
   </style>
 </head>
 <body>
@@ -441,7 +441,7 @@
                     </ul>
                 </div>
                 <div class="card-image">
-                    <img src="ton-image-enfant.png" alt="Primaire"> 
+                    <img src="https://img.icons8.com/color/96/student-male--v1.png" alt="Primaire"> 
                 </div>
             </div>
 
@@ -457,7 +457,7 @@
                     </ul>
                 </div>
                 <div class="card-image">
-                    <img src="ton-image-sac.png" alt="Secondaire">
+                     <img src="https://img.icons8.com/color/96/backpack.png" alt="Secondaire">
                 </div>
             </div>
 
@@ -472,7 +472,7 @@
                     </ul>
                 </div>
                 <div class="card-image">
-                    <img src="ton-image-livres.png" alt="Cégep">
+                     <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="Cégep">
                 </div>
             </div>
 
@@ -556,6 +556,7 @@
     currentLang = currentLang === 'fr' ? 'en' : 'fr';
     document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
     
+    // 1. Traduction classique par Clés (hero, footer, etc.)
     const elements = document.querySelectorAll('[data-key]');
     elements.forEach(el => {
       const key = el.getAttribute('data-key');
@@ -564,7 +565,17 @@
       }
     });
 
-    // MISE À JOUR CALENDLY
+    // 2. Traduction de la NOUVELLE section (Primaire/Secondaire/Cégep)
+    const frEnElements = document.querySelectorAll('[data-fr]');
+    frEnElements.forEach(el => {
+        if (currentLang === 'en') {
+            el.textContent = el.getAttribute('data-en');
+        } else {
+            el.textContent = el.getAttribute('data-fr');
+        }
+    });
+
+    // 3. Mise à jour Calendly
     const calendlyDiv = document.querySelector('.calendly-inline-widget');
     const baseUrl = calendlyDiv.getAttribute('data-url').split('?')[0];
     const langParam = currentLang === 'fr' ? 'fr' : 'en';
@@ -608,19 +619,7 @@
   function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
   animate();
   function explodeParticles() { particles.forEach(p => { p.x = Math.random() * canvas.width; p.y = Math.random() * canvas.height; }); }
-// Fonction simple pour changer la langue (si tu ne l'as pas déjà)
-function changeLanguage(lang) {
-    const elements = document.querySelectorAll('[data-fr]');
-    
-    elements.forEach(el => {
-        if (lang === 'en') {
-            el.textContent = el.getAttribute('data-en');
-        } else {
-            el.textContent = el.getAttribute('data-fr');
-        }
-    });
-}
-// Exemple d'utilisation : appelle changeLanguage('en') quand on clique sur ton bouton Anglais.
+
 </script>
 
 </body>
