@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
     /* ===== PALETTE DE COULEURS ===== */
@@ -208,7 +209,75 @@
     }
     .acc-body { padding: 20px; border-top: 1px solid #eee; }
 
+    /* --- SECTION NIVEAUX --- */
+    .levels-section {
+      padding: 80px 20px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .levels-section h2 { color: #2C3E50; font-size: 2.5rem; margin-bottom: 10px; }
+    .levels-section .subtitle { color: #666; margin-bottom: 50px; max-width: 600px; margin: 0 auto 50px auto; }
+    .levels-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; max-width: 1200px; margin: 0 auto; }
+    .level-card {
+      background: white; border-radius: 20px; padding: 40px; width: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.4s ease;
+      display: flex; flex-direction: column; align-items: center; text-align: left;
+      position: relative; overflow: hidden;
+    }
+    .level-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+    .level-card h3 { font-size: 1.8rem; color: #2C3E50; margin-bottom: 20px; width: 100%; }
+    .level-card ul { list-style: none; padding: 0; margin-bottom: 30px; width: 100%; }
+    .level-card li { margin-bottom: 10px; color: #555; font-size: 1rem; position: relative; padding-left: 15px; }
+    .level-card li::before { content: "•"; color: #27ae60; font-weight: bold; position: absolute; left: 0; }
+    .level-card .card-image img { width: 100px; height: 100px; object-fit: contain; margin-top: auto; }
+
     .booking-section { padding: 80px 20px; text-align: center; }
+
+    /* ===== FAQ SECTION (NOUVEAU) ===== */
+    .faq-section {
+        padding: 60px 20px;
+        background: #fff;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .faq-title { text-align: center; margin-bottom: 40px; }
+    /* On réutilise le style .acc-item pour la FAQ */
+
+    /* ===== SOFT CONTACT SECTION (NOUVEAU) ===== */
+    .contact-soft-section {
+        background: var(--beige);
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 20px;
+        margin: 40px 20px;
+    }
+    .contact-container { max-width: 600px; margin: 0 auto; }
+    .contact-soft-section h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .contact-input {
+        width: 100%;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        min-height: 100px;
+        resize: vertical;
+    }
+    .btn-secondary {
+        background: var(--white);
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-secondary:hover { background: var(--primary); color: white; }
     
     footer {
       background: var(--primary);
@@ -223,94 +292,6 @@
       .desktop-nav { display: none; }
       .hero { padding-top: 40px; }
       .visual-section { margin-top: 0; }
-    }
-
-    /* --- SECTION NIVEAUX (AJOUTÉE) --- */
-    .levels-section {
-      padding: 80px 20px;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
-
-    .levels-section h2 {
-      color: #2C3E50;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .levels-section .subtitle {
-      color: #666;
-      margin-bottom: 50px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .levels-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .level-card {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      width: 300px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: all 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: left;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* L'EFFET FLOTTANT */
-    .level-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-    }
-
-    .level-card h3 {
-      font-size: 1.8rem;
-      color: #2C3E50;
-      margin-bottom: 20px;
-      width: 100%;
-    }
-
-    .level-card ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 30px;
-      width: 100%;
-    }
-
-    .level-card li {
-      margin-bottom: 10px;
-      color: #555;
-      font-size: 1rem;
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .level-card li::before {
-      content: "•";
-      color: #27ae60;
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-
-    .level-card .card-image img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      margin-top: auto;
     }
   </style>
 </head>
@@ -328,8 +309,7 @@
     <a href="#about" data-key="nav_about">À propos</a>
     <a href="#details" data-key="nav_details">Services</a>
     <a href="#book" data-key="nav_book">Réserver</a>
-    <a href="#nous" data-key="nav_us">Nous</a>
-  </nav>
+    <a href="#contact-form" data-key="nav_contact">Contact</a> </nav>
 
   <div class="nav-actions">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
@@ -345,8 +325,7 @@
   <a href="#about" onclick="toggleMenu()" data-key="nav_about">À propos</a>
   <a href="#details" onclick="toggleMenu()" data-key="nav_details">Services</a>
   <a href="#book" onclick="toggleMenu()" data-key="nav_book">Réserver</a>
-  <a href="#nous" onclick="toggleMenu()" data-key="nav_us">Nous</a>
-</div>
+  <a href="#contact-form" onclick="toggleMenu()" data-key="nav_contact">Contact</a> </div>
 
 <section class="hero">
   <div class="badge" data-key="hero_badge">🇨🇦 Expertise Canada & USA 🇺🇸</div>
@@ -457,7 +436,7 @@
                     </ul>
                 </div>
                 <div class="card-image">
-                     <img src="https://img.icons8.com/color/96/backpack.png" alt="Secondaire">
+                    <img src="https://img.icons8.com/color/96/backpack.png" alt="Secondaire">
                 </div>
             </div>
 
@@ -472,7 +451,7 @@
                     </ul>
                 </div>
                 <div class="card-image">
-                     <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="Cégep">
+                    <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="Cégep">
                 </div>
             </div>
 
@@ -489,6 +468,69 @@
   <p style="margin-top:20px; font-size:0.8rem; color:#888;">* Uniquement pour Primaire & Secondaire (Canada/USA).</p>
 </section>
 
+<section class="faq-section">
+    <h2 class="faq-title" data-key="faq_title">Questions Fréquentes</h2>
+    
+    <div class="accordion">
+        <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span data-key="faq_q1">Est-ce que je dois m'engager pour l'année ?</span>
+                <span>+</span>
+            </div>
+            <div class="acc-content"><div class="acc-body" data-key="faq_a1">
+                Non. C'est à la semaine. Vous payez semaine par semaine et vous arrêtez quand vous voulez. Aucune obligation.
+            </div></div>
+        </div>
+
+        <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span data-key="faq_q2">Mon enfant est timide, comment ça se passe ?</span>
+                <span>+</span>
+            </div>
+            <div class="acc-content"><div class="acc-body" data-key="faq_a2">
+                Nos tuteurs sont des étudiants. Ils sont jeunes et l'approche est moins stricte qu'avec un prof adulte. Le courant passe généralement très vite !
+            </div></div>
+        </div>
+
+        <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span data-key="faq_q3">Comment on paie ?</span>
+                <span>+</span>
+            </div>
+            <div class="acc-content"><div class="acc-body" data-key="faq_a3">
+                Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu.
+            </div></div>
+        </div>
+
+        <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(this)">
+                <span data-key="faq_q4">Ça se passe sur quelle plateforme ?</span>
+                <span>+</span>
+            </div>
+            <div class="acc-content"><div class="acc-body" data-key="faq_a4">
+                On utilise Microsoft Teams ou Google Meet. Vous recevez le lien par courriel avant le cours. Pas besoin d'installer de logiciel compliqué.
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<section id="contact-form" class="contact-soft-section">
+    <div class="contact-container">
+        <h2 data-key="soft_title">Vous préférez nous écrire ?</h2>
+        <p data-key="soft_desc">Pas de souci. Posez votre question ici, nous vous répondrons directement par courriel.</p>
+        
+        <textarea id="userMessage" class="contact-input" placeholder="Bonjour, j'aimerais savoir si..."></textarea>
+        
+        <button class="btn-secondary" onclick="sendEmail()">
+            <i class="fas fa-paper-plane"></i> <span data-key="soft_btn">Envoyer mon message</span>
+        </button>
+        
+        <p style="margin-top:15px; font-size:0.8rem; color:#666;">
+            <i class="fas fa-envelope"></i> contact.tudotuto@gmail.com
+        </p>
+    </div>
+</section>
+
 <footer>
   <p>© 2026 Tudo Tuto — Tous droits réservés</p>
 </footer>
@@ -499,7 +541,7 @@
   /* ===== 1. TEXTES MULTILINGUES ===== */
   const translations = {
     fr: {
-      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver", nav_us: "Nous",
+      nav_about: "À propos", nav_details: "Services", nav_book: "Réserver", nav_us: "Nous", nav_contact: "Contact",
       hero_badge: "🇨🇦 Expertise Canada & USA 🇺🇸",
       hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
       hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
@@ -521,10 +563,24 @@
       acc3_title: "🚀 Préparation aux Examens",
       acc3_desc: "Ne plus jamais réviser à la dernière minute. Nous créons des fiches de révision et des simulations pour arriver confiant le jour J.",
       book_title: "Discutons de ses besoins",
-      book_desc: "Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon 'fit' pour votre enfant."
+      book_desc: "Réservez un créneau gratuit de 15 min pour voir si nous sommes le bon 'fit' pour votre enfant.",
+      // FAQ
+      faq_title: "Questions Fréquentes",
+      faq_q1: "Est-ce que je dois m'engager pour l'année ?",
+      faq_a1: "Non. C'est à la semaine. Vous payez semaine par semaine et vous arrêtez quand vous voulez. Aucune obligation.",
+      faq_q2: "Mon enfant est timide, comment ça se passe ?",
+      faq_a2: "Nos tuteurs sont des étudiants. Ils sont jeunes et l'approche est moins stricte qu'avec un prof adulte. Le courant passe généralement très vite !",
+      faq_q3: "Comment on paie ?",
+      faq_a3: "Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu.",
+      faq_q4: "Ça se passe sur quelle plateforme ?",
+      faq_a4: "On utilise Microsoft Teams ou Google Meet. Vous recevez le lien par courriel avant le cours. Pas besoin d'installer de logiciel compliqué.",
+      // SOFT CONTACT
+      soft_title: "Vous préférez nous écrire ?",
+      soft_desc: "Pas de souci. Posez votre question ici, nous vous répondrons directement par courriel.",
+      soft_btn: "Envoyer mon message"
     },
     en: {
-      nav_about: "About", nav_details: "Services", nav_book: "Book", nav_us: "About Us",
+      nav_about: "About", nav_details: "Services", nav_book: "Book", nav_us: "About Us", nav_contact: "Contact",
       hero_badge: "🇨🇦 Canada & USA Expertise 🇺🇸",
       hero_title: "Engineering Logic<br>for Academic Success.",
       hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
@@ -546,7 +602,21 @@
       acc3_title: "🚀 Exam Prep",
       acc3_desc: "No more last-minute cramming. We create review sheets and simulations to arrive confident on D-Day.",
       book_title: "Let's discuss needs",
-      book_desc: "Book a free 15-min slot to see if we are the right fit for your child."
+      book_desc: "Book a free 15-min slot to see if we are the right fit for your child.",
+      // FAQ
+      faq_title: "Frequent Questions",
+      faq_q1: "Do I have to commit for the whole year?",
+      faq_a1: "No. It is weekly. You pay week by week and can stop whenever you want. No strings attached.",
+      faq_q2: "My child is shy, how does it work?",
+      faq_a2: "Our tutors are university students. They are young and the approach is less strict than with an adult teacher. The connection usually happens very fast!",
+      faq_q3: "How do we pay?",
+      faq_a3: "Simple and secure. Interac transfer after each session. You get a receipt.",
+      faq_q4: "Which platform do you use?",
+      faq_a4: "We use Microsoft Teams or Google Meet. We send you the link by email before the class. No need to install complex software.",
+      // SOFT CONTACT
+      soft_title: "Prefer to write to us?",
+      soft_desc: "No problem. Ask your question here, we will reply directly by email.",
+      soft_btn: "Send my message"
     }
   };
 
@@ -556,7 +626,7 @@
     currentLang = currentLang === 'fr' ? 'en' : 'fr';
     document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'EN' : 'FR';
     
-    // 1. Traduction classique par Clés (hero, footer, etc.)
+    // 1. Traduction classique
     const elements = document.querySelectorAll('[data-key]');
     elements.forEach(el => {
       const key = el.getAttribute('data-key');
@@ -565,7 +635,7 @@
       }
     });
 
-    // 2. Traduction de la NOUVELLE section (Primaire/Secondaire/Cégep)
+    // 2. Traduction Niveaux
     const frEnElements = document.querySelectorAll('[data-fr]');
     frEnElements.forEach(el => {
         if (currentLang === 'en') {
@@ -574,8 +644,16 @@
             el.textContent = el.getAttribute('data-fr');
         }
     });
+    
+    // 3. Placeholder Text Area
+    const textArea = document.getElementById('userMessage');
+    if(currentLang === 'en') {
+        textArea.placeholder = "Hi, I would like to know if...";
+    } else {
+        textArea.placeholder = "Bonjour, j'aimerais savoir si...";
+    }
 
-    // 3. Mise à jour Calendly
+    // 4. Calendly Update
     const calendlyDiv = document.querySelector('.calendly-inline-widget');
     const baseUrl = calendlyDiv.getAttribute('data-url').split('?')[0];
     const langParam = currentLang === 'fr' ? 'fr' : 'en';
@@ -598,6 +676,14 @@
     if (!isIsOpen) {
       content.style.maxHeight = content.scrollHeight + "px";
     }
+  }
+
+  // FONCTION EMAIL MAGIQUE
+  function sendEmail() {
+    const message = document.getElementById('userMessage').value;
+    const subject = "Nouvelle demande Tudo Tuto";
+    // Ouvre le client mail de l'utilisateur
+    window.location.href = `mailto:contact.tudotuto@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
   const canvas = document.getElementById('logoCanvas');
