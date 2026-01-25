@@ -117,23 +117,17 @@
     }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-    .price-badge {
-      display: inline-block;
-      background: #fff8e1;
-      color: #333;
-      border: 1px solid #f0d87a;
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      margin-top: 12px;
-    }
-
-    .about-section { padding: 36px 18px; background: #f9f9fb; border-radius: 8px; max-width: 980px; margin: 32px auto; color: var(--text-dark); }
-
     .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
     .hero p { max-width: 600px; margin-bottom: 30px; font-size: 1.1rem; }
+
+    /* NOUVEAU : CONTENEUR DES 2 BOUTONS */
+    .hero-cta-group {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
 
     .btn-main {
       background: var(--primary); color: white;
@@ -141,80 +135,79 @@
       font-weight: 600; font-size: 1rem;
       box-shadow: 0 10px 20px rgba(45, 106, 79, 0.3);
       display: inline-block;
+      min-width: 200px;
     }
     .btn-main:hover { transform: translateY(-3px); background: var(--secondary); }
 
+    /* BOUTON SECONDAIRE (CHAT) */
+    .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        padding: 14px 30px; border-radius: 50px;
+        font-weight: 600; font-size: 1rem;
+        display: inline-flex; align-items: center; gap: 8px;
+        min-width: 200px;
+        justify-content: center;
+    }
+    .btn-outline:hover { background: var(--beige); transform: translateY(-3px); }
+
+    /* PETITE LIGNE DE PRIX DISCRÈTE */
+    .soft-price {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 10px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+    }
+    .soft-price i { color: var(--secondary); margin-right: 5px; }
+
     .visual-section {
-      width: 100%;
-      max-width: 1000px;
-      margin: -50px auto 60px;
-      padding: 0 20px;
-      position: relative;
-      z-index: 2;
+      width: 100%; max-width: 1000px; margin: -50px auto 60px;
+      padding: 0 20px; position: relative; z-index: 2;
     }
     .visual-section img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border: 4px solid white;
+      width: 100%; border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 4px solid white;
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: 0 auto 80px;
-      padding: 0 20px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px; max-width: 1100px; margin: 0 auto 80px; padding: 0 20px;
     }
 
     .card {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s;
+      background: white; padding: 30px; border-radius: 16px;
+      box-shadow: var(--shadow); transition: transform 0.3s;
       border-top: 5px solid var(--secondary);
     }
     .card:hover { transform: translateY(-5px); }
     .card h3 { font-size: 1.3rem; margin-bottom: 10px; }
 
-    .details-section {
-      background: var(--beige);
-      padding: 80px 20px;
-    }
+    .details-section { background: var(--beige); padding: 80px 20px; }
     
     .accordion { max-width: 800px; margin: 0 auto; }
     
     .acc-item {
-      background: white;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      background: white; margin-bottom: 15px; border-radius: 10px;
+      overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     
     .acc-header {
-      padding: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-      color: var(--primary);
+      padding: 20px; font-weight: 600; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; color: var(--primary);
     }
     
     .acc-content {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.3s ease;
-      background: #fafafa;
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #fafafa;
     }
     .acc-body { padding: 20px; border-top: 1px solid #eee; }
 
     /* --- SECTION NIVEAUX --- */
-    .levels-section {
-      padding: 80px 20px;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
+    .levels-section { padding: 80px 20px; background-color: #f9f9f9; text-align: center; }
     .levels-section h2 { color: #2C3E50; font-size: 2.5rem; margin-bottom: 10px; }
     .levels-section .subtitle { color: #666; margin-bottom: 50px; max-width: 600px; margin: 0 auto 50px auto; }
     .levels-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; max-width: 1200px; margin: 0 auto; }
@@ -233,65 +226,38 @@
 
     .booking-section { padding: 80px 20px; text-align: center; }
 
-    /* ===== FAQ SECTION (NOUVEAU) ===== */
-    .faq-section {
-        padding: 60px 20px;
-        background: #fff;
-        max-width: 800px;
-        margin: 0 auto;
-    }
+    /* ===== FAQ SECTION ===== */
+    .faq-section { padding: 60px 20px; background: #fff; max-width: 800px; margin: 0 auto; }
     .faq-title { text-align: center; margin-bottom: 40px; }
-    /* On réutilise le style .acc-item pour la FAQ */
 
-    /* ===== SOFT CONTACT SECTION (NOUVEAU) ===== */
+    /* ===== SOFT CONTACT SECTION ===== */
     .contact-soft-section {
-        background: var(--beige);
-        padding: 60px 20px;
-        text-align: center;
-        border-radius: 20px;
-        margin: 40px 20px;
+        background: var(--beige); padding: 60px 20px;
+        text-align: center; border-radius: 20px; margin: 40px 20px;
     }
     .contact-container { max-width: 600px; margin: 0 auto; }
     .contact-soft-section h2 { font-size: 1.8rem; margin-bottom: 10px; }
     .contact-input {
-        width: 100%;
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        margin-bottom: 20px;
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        min-height: 100px;
-        resize: vertical;
+        width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ccc;
+        margin-bottom: 20px; font-family: 'Inter', sans-serif; font-size: 1rem;
+        min-height: 100px; resize: vertical;
     }
     .btn-secondary {
-        background: var(--white);
-        color: var(--primary);
-        border: 2px solid var(--primary);
-        padding: 12px 30px;
-        border-radius: 50px;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 1rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
+        background: var(--white); color: var(--primary); border: 2px solid var(--primary);
+        padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer;
+        font-size: 1rem; display: inline-flex; align-items: center; gap: 10px;
     }
     .btn-secondary:hover { background: var(--primary); color: white; }
     
     footer {
-      background: var(--primary);
-      color: var(--accent);
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.9rem;
+      background: var(--primary); color: var(--accent);
+      text-align: center; padding: 40px 20px; font-size: 0.9rem;
     }
 
     @media (max-width: 768px) {
-      .menu-btn { display: block; }
-      .desktop-nav { display: none; }
-      .hero { padding-top: 40px; }
-      .visual-section { margin-top: 0; }
+      .menu-btn { display: block; } .desktop-nav { display: none; }
+      .hero { padding-top: 40px; } .visual-section { margin-top: 0; }
+      .soft-price { flex-direction: column; gap: 5px; }
     }
   </style>
 </head>
@@ -309,7 +275,8 @@
     <a href="#about" data-key="nav_about">À propos</a>
     <a href="#details" data-key="nav_details">Services</a>
     <a href="#book" data-key="nav_book">Réserver</a>
-    <a href="#contact-form" data-key="nav_contact">Contact</a> </nav>
+    <a href="#contact-form" data-key="nav_contact">Contact</a>
+  </nav>
 
   <div class="nav-actions">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
@@ -325,14 +292,27 @@
   <a href="#about" onclick="toggleMenu()" data-key="nav_about">À propos</a>
   <a href="#details" onclick="toggleMenu()" data-key="nav_details">Services</a>
   <a href="#book" onclick="toggleMenu()" data-key="nav_book">Réserver</a>
-  <a href="#contact-form" onclick="toggleMenu()" data-key="nav_contact">Contact</a> </div>
+  <a href="#contact-form" onclick="toggleMenu()" data-key="nav_contact">Contact</a>
+</div>
 
 <section class="hero">
   <div class="badge" data-key="hero_badge">🇨🇦 Expertise Canada & USA 🇺🇸</div>
   <h1 data-key="hero_title">L'ingénierie au service<br>de la réussite scolaire.</h1>
   <p data-key="hero_desc">Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.</p>
-  <a href="#book" class="btn-main" data-key="hero_cta">Booker mon appel gratuit (15 min)</a>
-  <div><span class="price-badge" aria-hidden="true">$50 / semaine — 2h</span></div>
+  
+  <div class="hero-cta-group">
+      <a href="#book" class="btn-main" data-key="hero_cta">Booker mon appel gratuit</a>
+      <a href="#contact-form" class="btn-outline">
+          <i class="far fa-comments"></i> <span data-key="hero_chat">Discuter avec un expert</span>
+      </a>
+  </div>
+  
+  <div class="soft-price">
+      <span data-key="trust_1"><i class="fas fa-check"></i> Sans engagement</span>
+      <span data-key="trust_2"><i class="fas fa-user-graduate"></i> Tuteurs vérifiés</span>
+      <span data-key="trust_3"><i class="fas fa-tag"></i> Dès 50$/semaine</span>
+  </div>
+
 </section>
 
 <section class="visual-section">
@@ -498,7 +478,7 @@
                 <span>+</span>
             </div>
             <div class="acc-content"><div class="acc-body" data-key="faq_a3">
-                Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu.
+                Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu. (Dès 50$/semaine pour 2h).
             </div></div>
         </div>
 
@@ -546,6 +526,10 @@
       hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
       hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
       hero_cta: "Booker mon appel gratuit (15 min)",
+      hero_chat: "Discuter avec un expert",
+      trust_1: "<i class='fas fa-check'></i> Sans engagement",
+      trust_2: "<i class='fas fa-user-graduate'></i> Tuteurs vérifiés",
+      trust_3: "<i class='fas fa-tag'></i> Dès 50$/semaine",
       card1_title: "🧠 Esprit d'Ingénieur",
       card1_desc: "Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.",
       card2_title: "🔒 100% Sécurisé",
@@ -571,7 +555,7 @@
       faq_q2: "Mon enfant est timide, comment ça se passe ?",
       faq_a2: "Nos tuteurs sont des étudiants. Ils sont jeunes et l'approche est moins stricte qu'avec un prof adulte. Le courant passe généralement très vite !",
       faq_q3: "Comment on paie ?",
-      faq_a3: "Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu.",
+      faq_a3: "Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu. (Dès 50$/semaine).",
       faq_q4: "Ça se passe sur quelle plateforme ?",
       faq_a4: "On utilise Microsoft Teams ou Google Meet. Vous recevez le lien par courriel avant le cours. Pas besoin d'installer de logiciel compliqué.",
       // SOFT CONTACT
@@ -585,6 +569,10 @@
       hero_title: "Engineering Logic<br>for Academic Success.",
       hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
       hero_cta: "Book my free call (15 min)",
+      hero_chat: "Chat with an expert",
+      trust_1: "<i class='fas fa-check'></i> No commitment",
+      trust_2: "<i class='fas fa-user-graduate'></i> Verified Tutors",
+      trust_3: "<i class='fas fa-tag'></i> From $50/week",
       card1_title: "🧠 Engineering Mindset",
       card1_desc: "We don't just teach by rote. We teach your child to think, structure their thoughts, and solve complex problems.",
       card2_title: "🔒 100% Secure",
@@ -610,7 +598,7 @@
       faq_q2: "My child is shy, how does it work?",
       faq_a2: "Our tutors are university students. They are young and the approach is less strict than with an adult teacher. The connection usually happens very fast!",
       faq_q3: "How do we pay?",
-      faq_a3: "Simple and secure. Interac transfer after each session. You get a receipt.",
+      faq_a3: "Simple and secure. Interac transfer after each session. You get a receipt. (From $50/week).",
       faq_q4: "Which platform do you use?",
       faq_a4: "We use Microsoft Teams or Google Meet. We send you the link by email before the class. No need to install complex software.",
       // SOFT CONTACT
@@ -682,7 +670,6 @@
   function sendEmail() {
     const message = document.getElementById('userMessage').value;
     const subject = "Nouvelle demande Tudo Tuto";
-    // Ouvre le client mail de l'utilisateur
     window.location.href = `mailto:contact.tudotuto@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   }
 
