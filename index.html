@@ -120,7 +120,6 @@
     .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 20px; }
     .hero p { max-width: 600px; margin-bottom: 30px; font-size: 1.1rem; }
 
-    /* NOUVEAU : CONTENEUR DES 2 BOUTONS */
     .hero-cta-group {
         display: flex;
         gap: 15px;
@@ -139,7 +138,6 @@
     }
     .btn-main:hover { transform: translateY(-3px); background: var(--secondary); }
 
-    /* BOUTON SECONDAIRE (CHAT) */
     .btn-outline {
         background: transparent;
         color: var(--primary);
@@ -152,7 +150,6 @@
     }
     .btn-outline:hover { background: var(--beige); transform: translateY(-3px); }
 
-    /* PETITE LIGNE DE PRIX DISCRÈTE */
     .soft-price {
         font-size: 0.85rem;
         color: #777;
@@ -226,9 +223,35 @@
 
     .booking-section { padding: 80px 20px; text-align: center; }
 
-    /* ===== FAQ SECTION ===== */
+    /* ===== FAQ & GAME ===== */
     .faq-section { padding: 60px 20px; background: #fff; max-width: 800px; margin: 0 auto; }
     .faq-title { text-align: center; margin-bottom: 40px; }
+
+    /* ===== GAME CHALLENGE SECTION (NOUVEAU) ===== */
+    .game-section {
+        background: #D8F3DC; /* Vert très clair */
+        padding: 40px 20px;
+        margin: 40px auto;
+        max-width: 600px;
+        border-radius: 20px;
+        text-align: center;
+        border: 2px solid var(--primary);
+    }
+    .game-title { color: var(--primary); font-size: 1.5rem; margin-bottom: 10px; }
+    .game-input {
+        padding: 10px; border-radius: 8px; border: 1px solid #ccc;
+        font-size: 1.2rem; width: 80px; text-align: center; margin: 10px;
+    }
+    .game-btn {
+        background: var(--primary); color: white; border: none;
+        padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;
+    }
+    .game-result {
+        margin-top: 15px; font-weight: bold; display: none;
+        padding: 15px; background: white; border-radius: 10px;
+    }
+    .success { color: var(--primary); border: 1px solid var(--primary); }
+    .error { color: #d63031; }
 
     /* ===== SOFT CONTACT SECTION ===== */
     .contact-soft-section {
@@ -297,8 +320,10 @@
 
 <section class="hero">
   <div class="badge" data-key="hero_badge">🇨🇦 Expertise Canada & USA 🇺🇸</div>
-  <h1 data-key="hero_title">Accélérez les résultats des élèves<br>grâce au tutorat haute performance.</h1>
-  <p data-key="hero_desc">Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie pour comprendre, réussir et gagner en autonomie.</p>
+  
+  <h1 data-key="hero_title">Accélérez sa réussite<br>grâce au tutorat haute performance.</h1>
+  
+  <p data-key="hero_desc">Fini le par cœur. La méthode structurée de nos étudiants en génie pour comprendre, réussir et gagner en autonomie.</p>
   
   <div class="hero-cta-group">
       <a href="#book" class="btn-main" data-key="hero_cta">Réserver un appel</a>
@@ -310,7 +335,7 @@
   <div class="soft-price">
       <span data-key="trust_1"><i class="fas fa-check"></i> Sans engagement</span>
       <span data-key="trust_2"><i class="fas fa-user-graduate"></i> Tuteurs formés</span>
-      <span data-key="trust_3"><i class="fas fa-tag"></i> Dès 27$/semaine</span>
+      <span data-key="trust_3"><i class="fas fa-tag"></i> Dès 50$/semaine</span>
   </div>
 
 </section>
@@ -336,8 +361,8 @@
 
 <section id="nous" class="about-section">
   <div>
-    <h2 data-key="us_title">Nous</h2>
-    <p data-key="us_desc">Passionnés par la transmission des connaissances, Tudo Tuto est un collectif de tuteur formés, majoritairement issus de cursus en ingénierie et science. Nous allions rigueur scientifique à une approche pédagogique structurée pour garentir des résultats concrets.</p>
+    <h2 data-key="us_title">Qui sommes-nous ?</h2>
+    <p data-key="us_desc">Tudo Tuto est un collectif de tuteurs formés, majoritairement issus de cursus en ingénierie et sciences. Nous allions la rigueur scientifique à une approche pédagogique structurée pour garantir des résultats concrets.</p>
   </div>
 </section>
 
@@ -364,7 +389,7 @@
         <span>+</span>
       </div>
       <div class="acc-content"><div class="acc-body" data-key="acc2_desc">
-        Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces inspirées du génie.
+        Un élève organisé réussit mieux. Nous aidons à planifier la semaine d'étude et à adopter des méthodes de travail efficaces.
       </div></div>
     </div>
 
@@ -494,6 +519,16 @@
     </div>
 </section>
 
+<section class="game-section">
+    <h3 class="game-title" data-key="game_title">Le Défi du Tuteur 🧠</h3>
+    <p data-key="game_q">Calculez 16% de 25 de tête. (Sans calculatrice !)</p>
+    
+    <input type="number" id="mathInput" class="game-input" placeholder="?">
+    <button onclick="checkMath()" class="game-btn" data-key="game_btn">Vérifier</button>
+    
+    <div id="gameResult" class="game-result"></div>
+</section>
+
 <section id="contact-form" class="contact-soft-section">
     <div class="contact-container">
         <h2 data-key="soft_title">Vous préférez nous écrire ?</h2>
@@ -518,26 +553,27 @@
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <script>
-  /* ===== 1. TEXTES MULTILINGUES ===== */
+  /* ===== 1. TEXTES MULTILINGUES (CORRIGÉS ET MIS À JOUR) ===== */
   const translations = {
     fr: {
       nav_about: "À propos", nav_details: "Services", nav_book: "Réserver", nav_us: "Nous", nav_contact: "Contact",
       hero_badge: "🇨🇦 Expertise Canada & USA 🇺🇸",
-      hero_title: "L'ingénierie au service<br>de la réussite scolaire.",
-      hero_desc: "Ne laissez pas les lacunes s'accumuler. Offrez à votre enfant la méthodologie d'étudiants en génie pour comprendre, réussir et gagner en autonomie.",
-      hero_cta: "Booker mon appel gratuit (15 min)",
+      hero_title: "Accélérez sa réussite<br>grâce au tutorat haute performance.",
+      hero_desc: "Fini le par cœur. La méthode structurée de nos étudiants en génie pour comprendre, réussir et gagner en autonomie.",
+      hero_cta: "Réserver un appel",
       hero_chat: "Discuter avec un expert",
       trust_1: "<i class='fas fa-check'></i> Sans engagement",
-      trust_2: "<i class='fas fa-user-graduate'></i> Tuteurs vérifiés",
+      trust_2: "<i class='fas fa-user-graduate'></i> Tuteurs formés",
       trust_3: "<i class='fas fa-tag'></i> Dès 50$/semaine",
-      card1_title: "🧠 Esprit d'Ingénieur",
+      card1_title: "🧠 Esprit de logique",
       card1_desc: "Nous n'enseignons pas par cœur. Nous apprenons à votre enfant à réfléchir, structurer sa pensée et résoudre des problèmes complexes.",
       card2_title: "🔒 100% Sécurisé",
       card2_desc: "Cours sur Teams. Possibilité d'enregistrer les séances pour rassurer les parents et permettre à l'élève de réviser.",
       card3_title: "🎯 Cible Précise",
       card3_desc: "Spécialistes Primaire & Secondaire. Nous nous concentrons sur les bases scolaires solides (Pas de niveau universitaire).",
-      us_title: "Nous",
-      us_desc: "Passionnés par la transmission des connaissances, nous sommes un collectif d’étudiants en ingénierie. En plus de notre cursus scientifique, nous sommes certifiés en soutien pédagogique et en aide à l'enseignement.",
+      // Nouvelle section NOUS (Honnête)
+      us_title: "Qui sommes-nous ?",
+      us_desc: "Tudo Tuto est un collectif de tuteurs formés, majoritairement issus de cursus en ingénierie et sciences. Nous allions la rigueur scientifique à une approche pédagogique structurée pour garantir des résultats concrets.",
       details_title: "Comment nous aidons votre enfant ?",
       details_sub: "Une approche complète, pas juste de l'aide aux devoirs.",
       acc1_title: "📚 Aide aux devoirs & Blocs",
@@ -558,6 +594,12 @@
       faq_a3: "Simple et sécurisé. Virement Interac après chaque séance. Vous recevez un reçu. (Dès 50$/semaine).",
       faq_q4: "Ça se passe sur quelle plateforme ?",
       faq_a4: "On utilise Microsoft Teams ou Google Meet. Vous recevez le lien par courriel avant le cours. Pas besoin d'installer de logiciel compliqué.",
+      // JEU MATH
+      game_title: "Le Défi du Tuteur 🧠",
+      game_q: "Calculez 16% de 25 de tête. (Sans calculatrice !)",
+      game_btn: "Vérifier",
+      game_fail: "Pas tout à fait... Essayez encore !",
+      game_win: "🎉 Bravo ! L'astuce d'ingénieur :<br>Les pourcentages sont réversibles.<br>Calculer 16% de 25, c'est dur.<br>Mais 25% de 16 (un quart de 16), c'est facile... c'est 4 !",
       // SOFT CONTACT
       soft_title: "Vous préférez nous écrire ?",
       soft_desc: "Pas de souci. Posez votre question ici, nous vous répondrons directement par courriel.",
@@ -566,21 +608,22 @@
     en: {
       nav_about: "About", nav_details: "Services", nav_book: "Book", nav_us: "About Us", nav_contact: "Contact",
       hero_badge: "🇨🇦 Canada & USA Expertise 🇺🇸",
-      hero_title: "Engineering Logic<br>for Academic Success.",
-      hero_desc: "Don't let gaps accumulate. Give your child the methodology of engineering students to understand, succeed, and gain autonomy.",
-      hero_cta: "Book my free call (15 min)",
+      hero_title: "Accelerate academic success<br>with high-performance tutoring.",
+      hero_desc: "No more rote learning. The structured method of our engineering students to understand, succeed, and gain autonomy.",
+      hero_cta: "Book my free call",
       hero_chat: "Chat with an expert",
       trust_1: "<i class='fas fa-check'></i> No commitment",
-      trust_2: "<i class='fas fa-user-graduate'></i> Verified Tutors",
+      trust_2: "<i class='fas fa-user-graduate'></i> Trained Tutors",
       trust_3: "<i class='fas fa-tag'></i> From $50/week",
-      card1_title: "🧠 Engineering Mindset",
+      card1_title: "🧠 Logical Mindset",
       card1_desc: "We don't just teach by rote. We teach your child to think, structure their thoughts, and solve complex problems.",
       card2_title: "🔒 100% Secure",
       card2_desc: "Teams sessions. Option to record sessions for parental peace of mind and student review.",
       card3_title: "🎯 Focused Target",
       card3_desc: "Primary & High School Specialists. We focus on solid academic foundations (No University level).",
-      us_title: "About Us",
-      us_desc: "Passionate about sharing knowledge, we are a collective of engineering students. In addition to our scientific studies, we are certified in educational support and teaching assistance.",
+      // Nouvelle section NOUS (Honnête EN)
+      us_title: "Who are we?",
+      us_desc: "Tudo Tuto is a collective of trained tutors, mostly coming from engineering and science backgrounds. We combine scientific rigor with a structured pedagogical approach to ensure concrete results.",
       details_title: "How we help your child?",
       details_sub: "A complete approach, not just homework help.",
       acc1_title: "📚 Homework Help & Blocks",
@@ -601,6 +644,12 @@
       faq_a3: "Simple and secure. Interac transfer after each session. You get a receipt. (From $50/week).",
       faq_q4: "Which platform do you use?",
       faq_a4: "We use Microsoft Teams or Google Meet. We send you the link by email before the class. No need to install complex software.",
+      // GAME MATH
+      game_title: "The Tutor's Challenge 🧠",
+      game_q: "Calculate 16% of 25 in your head. (No calculator!)",
+      game_btn: "Check",
+      game_fail: "Not quite... Try again!",
+      game_win: "🎉 Well done! The engineering trick:<br>Percentages are reversible.<br>Calculating 16% of 25 is hard.<br>But 25% of 16 (a quarter of 16) is easy... it's 4!",
       // SOFT CONTACT
       soft_title: "Prefer to write to us?",
       soft_desc: "No problem. Ask your question here, we will reply directly by email.",
@@ -671,6 +720,21 @@
     const message = document.getElementById('userMessage').value;
     const subject = "Nouvelle demande Tudo Tuto";
     window.location.href = `mailto:contact.tudotuto@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+  }
+
+  // FONCTION JEU MATHÉMATIQUE
+  function checkMath() {
+    const val = document.getElementById('mathInput').value;
+    const resDiv = document.getElementById('gameResult');
+    resDiv.style.display = "block";
+    
+    if (val == 4) {
+        resDiv.className = "game-result success";
+        resDiv.innerHTML = translations[currentLang]['game_win'];
+    } else {
+        resDiv.className = "game-result error";
+        resDiv.innerText = translations[currentLang]['game_fail'];
+    }
   }
 
   const canvas = document.getElementById('logoCanvas');
