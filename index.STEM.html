@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo Tuto STEM LABS | Devenez Créateur, Pas Juste Consommateur</title>
+    <meta name="description" content="Transformez le temps d'écran de votre enfant en compétences réelles : Design 3D, Logique & Créativité. Ateliers en ligne pour les 8-14 ans.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: {
+                        'space-blue': '#0a1628',
+                        'space-blue-light': '#1a2a4a',
+                        'vibrant-green': '#22c55e',
+                        'vibrant-green-dark': '#16a34a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text { background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass { background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(12px); }
+        .card-hover { transition: all 0.4s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15); }
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
+        .btn-shine:hover::before { left: 100%; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-sans bg-space-blue text-white overflow-x-hidden">
+    
+    <div class="bg-space-blue-light border-b border-white/10 text-xs py-2 px-4 flex justify-between items-center z-50 relative">
+        <a href="index.html" class="text-gray-400 hover:text-vibrant-green transition flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i> Retour au Tutorat Classique
+        </a>
+        <div class="flex gap-2">
+            <span class="text-vibrant-green font-bold">FR</span>
+            <a href="#" onclick="alert('La version anglaise sera disponible très bientôt !');" class="text-gray-500 hover:text-white transition">EN</a>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-vibrant-green to-vibrant-green-dark rounded-xl flex items-center justify-center">
+                        <i class="fas fa-rocket text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold">Tudo Tuto</span>
+                        <span class="text-xs text-vibrant-green font-medium -mt-1">STEM LABS</span>
+                    </div>
+                </a>
+                
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-vibrant-green font-medium">Accueil</a>
+                    <a href="#curriculum" class="text-gray-300 hover:text-vibrant-green font-medium">Programme</a>
+                    <a href="#how-it-works" class="text-gray-300 hover:text-vibrant-green font-medium">La Méthode</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-vibrant-green font-medium">Tarifs</a>
+                </nav>
+                
+                <div class="hidden lg:block">
+                    <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-vibrant-green hover:bg-vibrant-green-dark text-white font-semibold px-6 py-3 rounded-full transition-all">
+                        Réserver votre place
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="relative py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black mb-6">
+                Ne jouez pas juste.<br><span class="gradient-text">Créez le jeu.</span>
+            </h1>
+            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+                Transformez le temps d'écran en compétences <span class="text-vibrant-green">d'Ingénierie & de Logique</span>. Ateliers de Design 3D pour les 8-14 ans.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-vibrant-green text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg shadow-vibrant-green/30">
+                    Lancer la Mission 🚀
+                </a>
+                <a href="#how-it-works" class="bg-white/5 border border-white/20 px-8 py-4 rounded-full text-lg hover:bg-white/10 transition">
+                    Comment ça marche
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="curriculum" class="py-20 bg-space-blue-light/30">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl lg:text-5xl font-bold text-center mb-16">Notre <span class="gradient-text">Programme</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
+                    <i class="fas fa-cube text-vibrant-green text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Ingénierie 3D</h3>
+                    <p class="text-sm text-gray-400">Maîtriser Tinkercad. Construire des fusées et des prototypes.</p>
+                </div>
+                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
+                    <i class="fas fa-brain text-blue-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Logique & Maths</h3>
+                    <p class="text-sm text-gray-400">Apprendre la géométrie spatiale sans s'en rendre compte.</p>
+                </div>
+                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
+                    <i class="fas fa-palette text-purple-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Créativité</h3>
+                    <p class="text-sm text-gray-400">Transformer une idée abstraite en un projet visuel concret.</p>
+                </div>
+                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
+                    <i class="fas fa-users text-orange-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Travail d'équipe</h3>
+                    <p class="text-sm text-gray-400">Collaborer en petit groupe, communiquer ses idées et s'entraider.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-12">La Méthode Tudo Tuto</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div><div class="text-4xl font-black text-vibrant-green">4</div><div class="text-gray-400">Max par Groupe</div></div>
+                <div><div class="text-4xl font-black text-vibrant-green">1h</div><div class="text-gray-400">Sessions Actives</div></div>
+                <div><div class="text-4xl font-black text-vibrant-green">100%</div><div class="text-gray-400">En Direct Live</div></div>
+                <div><div class="text-4xl font-black text-vibrant-green">0</div><div class="text-gray-400">Logiciel à Installer</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 bg-space-blue-light/20">
+        <div class="max-w-lg mx-auto px-4 text-center">
+            <div class="bg-space-blue p-10 rounded-3xl border-2 border-vibrant-green/50 shadow-2xl">
+                <h3 class="text-2xl font-bold mb-2">Pack Explorateur</h3>
+                <div class="text-5xl font-black text-vibrant-green mb-8">21$<span class="text-xl text-gray-400 font-normal">/session</span></div>
+                
+                <ul class="text-left space-y-4 mb-8 text-gray-300">
+                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Petit groupe (4 max)</li>
+                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Mentorat Expert en Direct</li>
+                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Portfolio de Projets 3D</li>
+                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Travail collaboratif</li>
+                </ul>
+                
+                <a href="LIEN_CALENDLY_ICI" target="_blank" class="block w-full bg-vibrant-green text-white font-bold py-4 rounded-full hover:bg-vibrant-green-dark transition">
+                    Réserver ma place
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.reveal').forEach(el => {
+            new IntersectionObserver(entries => {
+                if(entries[0].isIntersecting) el.classList.add('active');
+            }).observe(el);
+        });
+    </script>
+</body>
+</html>
