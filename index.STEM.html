@@ -9,19 +9,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         'space-blue': '#0a1628',
                         'space-blue-light': '#1a2a4a',
                         'vibrant-green': '#22c55e',
                         'vibrant-green-dark': '#16a34a',
+                        'vibrant-green-light': '#4ade80',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
@@ -29,145 +45,505 @@
     </script>
     
     <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a1628; }
+        ::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #16a34a; }
+        
         html { scroll-behavior: smooth; }
-        .gradient-text { background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .glass { background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(12px); }
-        .card-hover { transition: all 0.4s ease; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15); }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #22c55e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
+        }
+        
         .btn-shine { position: relative; overflow: hidden; }
-        .btn-shine::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
+        .btn-shine::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
         .btn-shine:hover::before { left: 100%; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open { transform: translateX(0); }
     </style>
 </head>
 <body class="font-sans bg-space-blue text-white overflow-x-hidden">
     
-    <div class="bg-space-blue-light border-b border-white/10 text-xs py-2 px-4 flex justify-between items-center z-50 relative">
-        <a href="index.html" class="text-gray-400 hover:text-vibrant-green transition flex items-center gap-2">
-            <i class="fas fa-arrow-left"></i> Retour au Tutorat Classique
-        </a>
-        <div class="flex gap-2">
-            <span class="text-vibrant-green font-bold">FR</span>
-            <a href="#" onclick="alert('La version anglaise sera disponible très bientôt !');" class="text-gray-500 hover:text-white transition">EN</a>
+    <div id="stars-container" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="glass border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16 lg:h-20">
+                    <a href="#" class="flex items-center space-x-2 group">
+                        <div class="w-10 h-10 bg-gradient-to-br from-vibrant-green to-vibrant-green-dark rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                            <i class="fas fa-rocket text-white text-lg"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xl font-bold text-white">Tudo Tuto</span>
+                            <span class="text-xs text-vibrant-green font-medium -mt-1">STEM LABS</span>
+                        </div>
+                    </a>
+                    
+                    <nav class="hidden lg:flex items-center space-x-6">
+                        <a href="index.html" class="text-white hover:text-vibrant-green transition-colors font-medium border border-white/20 px-4 py-2 rounded-full text-sm" data-key="nav_main">Tutorat Classique</a>
+                        <a href="#home" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium" data-key="nav_home">Home</a>
+                        <a href="#curriculum" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium" data-key="nav_prog">Programme</a>
+                        <a href="#pricing" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium" data-key="nav_pricing">Tarifs</a>
+                        <a href="#contact" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium" data-key="nav_contact">Contact</a>
+                        <button class="lang-btn border border-vibrant-green text-vibrant-green px-3 py-1 rounded-full hover:bg-vibrant-green hover:text-space-blue font-bold transition" onclick="toggleLang()" id="langBtn">EN</button>
+                    </nav>
+                    
+                    <div class="hidden lg:block">
+                        <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-gradient-to-r from-vibrant-green to-vibrant-green-dark hover:from-vibrant-green-light hover:to-vibrant-green text-white font-semibold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-vibrant-green/30" data-key="btn_book">
+                            Réserver votre place
+                        </a>
+                    </div>
+                    
+                    <button id="mobile-menu-btn" class="lg:hidden text-white p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-72 bg-space-blue-light z-50 shadow-2xl lg:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-xl font-bold">Menu</span>
+                <button id="mobile-menu-close" class="text-white p-2">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <button class="lang-btn border border-vibrant-green text-vibrant-green px-3 py-1 rounded-full w-16 text-center font-bold" onclick="toggleLang()" id="langBtnMobile">EN</button>
+                <a href="index.html" class="text-vibrant-green hover:text-white transition-colors font-bold text-lg py-2 border-b border-white/10" data-key="nav_main">Tutorat Classique</a>
+                <a href="#home" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium text-lg py-2 border-b border-white/10" data-key="nav_home">Home</a>
+                <a href="#curriculum" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium text-lg py-2 border-b border-white/10" data-key="nav_prog">Programme</a>
+                <a href="#pricing" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium text-lg py-2 border-b border-white/10" data-key="nav_pricing">Tarifs</a>
+                <a href="#contact" class="text-gray-300 hover:text-vibrant-green transition-colors font-medium text-lg py-2 border-b border-white/10" data-key="nav_contact">Contact</a>
+                <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-gradient-to-r from-vibrant-green to-vibrant-green-dark text-white font-semibold px-6 py-4 rounded-xl text-center mt-4" data-key="btn_book">
+                    Réserver votre place
+                </a>
+            </nav>
         </div>
     </div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
 
-    <header class="sticky top-0 z-40 glass border-b border-white/10">
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-50"></div>
+        <div class="absolute top-20 right-0 w-96 h-96 bg-vibrant-green/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="reveal text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-white/5 border border-vibrant-green/30 rounded-full px-4 py-2 mb-6">
+                        <span class="w-2 h-2 bg-vibrant-green rounded-full animate-pulse"></span>
+                        <span class="text-sm text-gray-300" data-key="hero_badge">Inscriptions ouvertes - Hiver 2026</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6" data-key="hero_title">
+                        Ne jouez pas juste.<br>
+                        <span class="gradient-text">Créez le jeu.</span>
+                    </h1>
+                    
+                    <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0" data-key="hero_desc">
+                        Transformez le temps d'écran en compétences <span class="text-vibrant-green font-semibold">d'Ingénierie & de Logique</span>. Ateliers de Design 3D pour les <span class="text-white font-bold">8-14 ans</span>.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+                        <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-gradient-to-r from-vibrant-green to-vibrant-green-dark hover:from-vibrant-green-light hover:to-vibrant-green text-white font-bold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-xl shadow-vibrant-green/30 flex items-center justify-center space-x-2">
+                            <span data-key="hero_btn_1">Lancer la Mission</span>
+                            <span class="animate-bounce">🚀</span>
+                        </a>
+                        <a href="#curriculum" class="bg-white/5 hover:bg-white/10 border border-white/20 text-white font-semibold px-8 py-4 rounded-full text-lg transition-all flex items-center justify-center space-x-2">
+                            <i class="fas fa-play-circle text-vibrant-green"></i>
+                            <span data-key="hero_btn_2">Comment ça marche</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="reveal relative transform lg:rotate-3 transition-transform hover:rotate-0 duration-500">
+                    <div class="relative bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-2 border border-white/10 shadow-2xl">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-amber-50/90 rounded-2xl p-4 sm:p-6 text-center">
+                                <span class="text-xs font-bold text-amber-700 bg-amber-200 px-2 py-1 rounded mb-2 inline-block" data-key="tag_before">AVANT</span>
+                                <div class="w-16 h-16 mx-auto mb-3 bg-amber-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-pencil-alt text-amber-600 text-2xl"></i>
+                                </div>
+                                <p class="text-amber-800 font-semibold text-sm" data-key="desc_before">Dessin Papier</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-vibrant-green/20 to-vibrant-green/5 rounded-2xl p-4 sm:p-6 text-center border border-vibrant-green/30">
+                                <span class="text-xs font-bold text-vibrant-green bg-vibrant-green/20 px-2 py-1 rounded mb-2 inline-block" data-key="tag_after">APRÈS</span>
+                                <div class="w-16 h-16 mx-auto mb-3 bg-vibrant-green/20 rounded-full flex items-center justify-center animate-pulse-slow">
+                                    <i class="fas fa-cube text-vibrant-green text-2xl"></i>
+                                </div>
+                                <p class="text-vibrant-green font-semibold text-sm" data-key="desc_after">Design 3D Tinkercad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem-solution" class="relative py-20 lg:py-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-                <a href="#" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-vibrant-green to-vibrant-green-dark rounded-xl flex items-center justify-center">
-                        <i class="fas fa-rocket text-white"></i>
+            <div class="text-center mb-16 reveal">
+                <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider" data-key="prob_sub">La Transformation</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6" data-key="prob_title">
+                    De <span class="text-gray-400">Consommateur Passif</span> à <span class="gradient-text">Créateur Actif</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="reveal comparison-card bg-gradient-to-br from-red-900/20 to-red-950/10 rounded-3xl p-8 border border-red-500/20">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <i class="fas fa-times-circle text-red-400 text-2xl"></i>
+                        <h3 class="text-2xl font-bold text-red-400" data-key="prob_bad_title">Mode Passif</h3>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-bold">Tudo Tuto</span>
-                        <span class="text-xs text-vibrant-green font-medium -mt-1">STEM LABS</span>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3 text-gray-400">
+                            <i class="fas fa-tv mt-1"></i>
+                            <span data-key="prob_bad_1">Regarder YouTube sans fin</span>
+                        </li>
+                        <li class="flex items-start space-x-3 text-gray-400">
+                            <i class="fas fa-gamepad mt-1"></i>
+                            <span data-key="prob_bad_2">Juste jouer, sans comprendre</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="reveal comparison-card bg-gradient-to-br from-vibrant-green/20 to-vibrant-green/5 rounded-3xl p-8 border border-vibrant-green/30">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <i class="fas fa-check-circle text-vibrant-green text-2xl"></i>
+                        <h3 class="text-2xl font-bold text-vibrant-green" data-key="prob_good_title">Mode Tudo Tuto</h3>
                     </div>
-                </a>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3 text-white">
+                            <i class="fas fa-rocket text-vibrant-green mt-1"></i>
+                            <span data-key="prob_good_1"><strong>Concevoir</strong> ses propres objets 3D</span>
+                        </li>
+                        <li class="flex items-start space-x-3 text-white">
+                            <i class="fas fa-brain text-vibrant-green mt-1"></i>
+                            <span data-key="prob_good_2"><strong>Résoudre</strong> des problèmes logiques</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="curriculum" class="relative py-20 lg:py-32 overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6" data-key="curric_title">
+                    Notre <span class="gradient-text">Programme</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border border-white/10">
+                    <div class="w-16 h-16 bg-vibrant-green/20 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-cube text-vibrant-green text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-key="curr_1_title">Ingénierie 3D</h3>
+                    <p class="text-gray-400" data-key="curr_1_desc">Maîtriser Tinkercad. Construire des fusées, des voitures et des maisons.</p>
+                </div>
                 
-                <nav class="hidden lg:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-vibrant-green font-medium">Accueil</a>
-                    <a href="#curriculum" class="text-gray-300 hover:text-vibrant-green font-medium">Programme</a>
-                    <a href="#how-it-works" class="text-gray-300 hover:text-vibrant-green font-medium">La Méthode</a>
-                    <a href="#pricing" class="text-gray-300 hover:text-vibrant-green font-medium">Tarifs</a>
-                </nav>
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border border-white/10" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-blue-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-key="curr_2_title">Logique & Maths</h3>
+                    <p class="text-gray-400" data-key="curr_2_desc">Apprendre la géométrie et la physique sans s'en rendre compte. Zéro ennui.</p>
+                </div>
                 
-                <div class="hidden lg:block">
-                    <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-vibrant-green hover:bg-vibrant-green-dark text-white font-semibold px-6 py-3 rounded-full transition-all">
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border border-white/10" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-key="curr_3_title">Créativité</h3>
+                    <p class="text-gray-400" data-key="curr_3_desc">Transformer une idée abstraite en un projet visuel concret.</p>
+                </div>
+
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border border-white/10" style="transition-delay: 0.3s;">
+                    <div class="w-16 h-16 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-amber-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-key="curr_4_title">Travail d'équipe</h3>
+                    <p class="text-gray-400" data-key="curr_4_desc">Collaborer sur des projets communs et apprendre à communiquer ses idées.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative py-20 lg:py-32 overflow-hidden bg-space-blue-light/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-bold mb-4" data-key="meth_title">La Méthode Tudo Tuto</h2>
+                <p class="text-gray-400" data-key="meth_sub">Pourquoi les parents nous font confiance pour débuter</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 reveal">
+                <div class="text-center">
+                    <div class="text-4xl lg:text-5xl font-black text-vibrant-green mb-2">4</div>
+                    <div class="text-gray-400" data-key="meth_stat1">Max par Groupe</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl lg:text-5xl font-black text-vibrant-green mb-2">1h</div>
+                    <div class="text-gray-400" data-key="meth_stat2">Sessions Actives</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl lg:text-5xl font-black text-vibrant-green mb-2">100%</div>
+                    <div class="text-gray-400" data-key="meth_stat3">En Direct (Live)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl lg:text-5xl font-black text-vibrant-green mb-2">0</div>
+                    <div class="text-gray-400" data-key="meth_stat4">Logiciel à Installer</div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 border border-white/5 rounded-2xl bg-space-blue">
+                    <i class="fas fa-shield-alt text-vibrant-green text-3xl mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2" data-key="meth_card1_title">Environnement Sûr</h4>
+                    <p class="text-gray-400 text-sm" data-key="meth_card1_desc">Des petits groupes surveillés et bienveillants.</p>
+                </div>
+                <div class="p-6 border border-white/5 rounded-2xl bg-space-blue">
+                    <i class="fas fa-laptop-code text-blue-400 text-3xl mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2" data-key="meth_card2_title">Outils Pros</h4>
+                    <p class="text-gray-400 text-sm" data-key="meth_card2_desc">On utilise Tinkercad, pas des jouets.</p>
+                </div>
+                <div class="p-6 border border-white/5 rounded-2xl bg-space-blue">
+                    <i class="fas fa-smile text-purple-400 text-3xl mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2" data-key="meth_card3_title">Plaisir Garanti</h4>
+                    <p class="text-gray-400 text-sm" data-key="meth_card3_desc">Si l'enfant ne s'amuse pas, on a échoué.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="relative py-20 lg:py-32 overflow-hidden">
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal max-w-lg mx-auto">
+                <div class="pricing-highlight bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 lg:p-10 border-2 border-vibrant-green/50 shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-2" data-key="price_pack">Pack Explorateur</h3>
+                        <div class="flex items-baseline justify-center space-x-2 mt-4">
+                            <span class="text-5xl lg:text-6xl font-black text-vibrant-green" data-key="price_val">21$</span>
+                            <span class="text-gray-400 text-xl" data-key="price_per">/session</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-vibrant-green"></i>
+                            <span class="text-gray-300" data-key="price_feat1">Petit groupe (4 max)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-vibrant-green"></i>
+                            <span class="text-gray-300" data-key="price_feat2">Mentorat Expert en Direct</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-vibrant-green"></i>
+                            <span class="text-gray-300" data-key="price_feat3">Portfolio de Projets (Pas de certif fake)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check text-vibrant-green"></i>
+                            <span class="text-gray-300" data-key="price_feat4">Aucun logiciel à installer</span>
+                        </div>
+                    </div>
+                    
+                    <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine block w-full bg-gradient-to-r from-vibrant-green to-vibrant-green-dark hover:from-vibrant-green-light hover:to-vibrant-green text-white font-bold px-8 py-4 rounded-full text-lg text-center shadow-xl" data-key="btn_book">
                         Réserver votre place
                     </a>
                 </div>
             </div>
         </div>
-    </header>
-
-    <section id="home" class="relative py-20 lg:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black mb-6">
-                Ne jouez pas juste.<br><span class="gradient-text">Créez le jeu.</span>
-            </h1>
-            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-                Transformez le temps d'écran en compétences <span class="text-vibrant-green">d'Ingénierie & de Logique</span>. Ateliers de Design 3D pour les 8-14 ans.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="LIEN_CALENDLY_ICI" target="_blank" class="btn-shine bg-vibrant-green text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg shadow-vibrant-green/30">
-                    Lancer la Mission 🚀
-                </a>
-                <a href="#how-it-works" class="bg-white/5 border border-white/20 px-8 py-4 rounded-full text-lg hover:bg-white/10 transition">
-                    Comment ça marche
-                </a>
-            </div>
-        </div>
     </section>
 
-    <section id="curriculum" class="py-20 bg-space-blue-light/30">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl lg:text-5xl font-bold text-center mb-16">Notre <span class="gradient-text">Programme</span></h2>
+    <footer id="contact" class="relative py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-2 mb-4">
+                        <i class="fas fa-rocket text-vibrant-green text-2xl"></i>
+                        <span class="text-xl font-bold text-white">Tudo Tuto</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-xs" data-key="footer_desc">
+                        Nous formons la prochaine génération de créateurs et d'ingénieurs.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="LIEN_INSTAGRAM_ICI" target="_blank" class="text-gray-400 hover:text-vibrant-green transition-colors text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="LIEN_FACEBOOK_ICI" target="_blank" class="text-gray-400 hover:text-vibrant-green transition-colors text-2xl"><i class="fab fa-facebook"></i></a>
+                    <a href="mailto:hello@tudotuto.com" class="text-gray-400 hover:text-vibrant-green transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
-                    <i class="fas fa-cube text-vibrant-green text-3xl mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Ingénierie 3D</h3>
-                    <p class="text-sm text-gray-400">Maîtriser Tinkercad. Construire des fusées et des prototypes.</p>
-                </div>
-                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
-                    <i class="fas fa-brain text-blue-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Logique & Maths</h3>
-                    <p class="text-sm text-gray-400">Apprendre la géométrie spatiale sans s'en rendre compte.</p>
-                </div>
-                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
-                    <i class="fas fa-palette text-purple-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Créativité</h3>
-                    <p class="text-sm text-gray-400">Transformer une idée abstraite en un projet visuel concret.</p>
-                </div>
-                <div class="reveal card-hover bg-space-blue p-6 rounded-2xl border border-white/10">
-                    <i class="fas fa-users text-orange-400 text-3xl mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Travail d'équipe</h3>
-                    <p class="text-sm text-gray-400">Collaborer en petit groupe, communiquer ses idées et s'entraider.</p>
-                </div>
+            <div class="text-center mt-12 pt-8 border-t border-white/10 text-gray-600 text-sm" data-key="footer_rights">
+                &copy; 2026 Tudo Tuto STEM LABS. Tous droits réservés.
             </div>
         </div>
-    </section>
-
-    <section id="how-it-works" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-12">La Méthode Tudo Tuto</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                <div><div class="text-4xl font-black text-vibrant-green">4</div><div class="text-gray-400">Max par Groupe</div></div>
-                <div><div class="text-4xl font-black text-vibrant-green">1h</div><div class="text-gray-400">Sessions Actives</div></div>
-                <div><div class="text-4xl font-black text-vibrant-green">100%</div><div class="text-gray-400">En Direct Live</div></div>
-                <div><div class="text-4xl font-black text-vibrant-green">0</div><div class="text-gray-400">Logiciel à Installer</div></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="py-20 bg-space-blue-light/20">
-        <div class="max-w-lg mx-auto px-4 text-center">
-            <div class="bg-space-blue p-10 rounded-3xl border-2 border-vibrant-green/50 shadow-2xl">
-                <h3 class="text-2xl font-bold mb-2">Pack Explorateur</h3>
-                <div class="text-5xl font-black text-vibrant-green mb-8">21$<span class="text-xl text-gray-400 font-normal">/session</span></div>
-                
-                <ul class="text-left space-y-4 mb-8 text-gray-300">
-                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Petit groupe (4 max)</li>
-                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Mentorat Expert en Direct</li>
-                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Portfolio de Projets 3D</li>
-                    <li><i class="fas fa-check text-vibrant-green mr-2"></i> Travail collaboratif</li>
-                </ul>
-                
-                <a href="LIEN_CALENDLY_ICI" target="_blank" class="block w-full bg-vibrant-green text-white font-bold py-4 rounded-full hover:bg-vibrant-green-dark transition">
-                    Réserver ma place
-                </a>
-            </div>
-        </div>
-    </section>
+    </footer>
 
     <script>
-        document.querySelectorAll('.reveal').forEach(el => {
-            new IntersectionObserver(entries => {
-                if(entries[0].isIntersecting) el.classList.add('active');
-            }).observe(el);
-        });
+        /* ===== DICTIONNAIRE DE TRADUCTION STEM LAB ===== */
+        const translations = {
+            fr: {
+                nav_main: "Tutorat Classique", nav_home: "Home", nav_prog: "Programme", nav_pricing: "Tarifs", nav_contact: "Contact",
+                btn_book: "Réserver votre place",
+                hero_badge: "Inscriptions ouvertes - Hiver 2026",
+                hero_title: "Ne jouez pas juste.<br><span class='gradient-text'>Créez le jeu.</span>",
+                hero_desc: "Transformez le temps d'écran en compétences <span class='text-vibrant-green font-semibold'>d'Ingénierie & de Logique</span>. Ateliers de Design 3D pour les <span class='text-white font-bold'>8-14 ans</span>.",
+                hero_btn_1: "Lancer la Mission", hero_btn_2: "Comment ça marche",
+                tag_before: "AVANT", desc_before: "Dessin Papier",
+                tag_after: "APRÈS", desc_after: "Design 3D Tinkercad",
+                prob_sub: "La Transformation", prob_title: "De <span class='text-gray-400'>Consommateur Passif</span> à <span class='gradient-text'>Créateur Actif</span>",
+                prob_bad_title: "Mode Passif", prob_bad_1: "Regarder YouTube sans fin", prob_bad_2: "Juste jouer, sans comprendre",
+                prob_good_title: "Mode Tudo Tuto", prob_good_1: "<strong>Concevoir</strong> ses propres objets 3D", prob_good_2: "<strong>Résoudre</strong> des problèmes logiques",
+                curric_title: "Notre <span class='gradient-text'>Programme</span>",
+                curr_1_title: "Ingénierie 3D", curr_1_desc: "Maîtriser Tinkercad. Construire des fusées, des voitures et des maisons.",
+                curr_2_title: "Logique & Maths", curr_2_desc: "Apprendre la géométrie et la physique sans s'en rendre compte. Zéro ennui.",
+                curr_3_title: "Créativité", curr_3_desc: "Transformer une idée abstraite en un projet visuel concret.",
+                curr_4_title: "Travail d'équipe", curr_4_desc: "Collaborer sur des projets communs et apprendre à communiquer ses idées.",
+                meth_title: "La Méthode Tudo Tuto", meth_sub: "Pourquoi les parents nous font confiance pour débuter",
+                meth_stat1: "Max par Groupe", meth_stat2: "Sessions Actives", meth_stat3: "En Direct (Live)", meth_stat4: "Logiciel à Installer",
+                meth_card1_title: "Environnement Sûr", meth_card1_desc: "Des petits groupes surveillés et bienveillants.",
+                meth_card2_title: "Outils Pros", meth_card2_desc: "On utilise Tinkercad, pas des jouets.",
+                meth_card3_title: "Plaisir Garanti", meth_card3_desc: "Si l'enfant ne s'amuse pas, on a échoué.",
+                price_pack: "Pack Explorateur", price_val: "21$", price_per: "/session",
+                price_feat1: "Petit groupe (4 max)", price_feat2: "Mentorat Expert en Direct", price_feat3: "Portfolio de Projets (Pas de certif fake)", price_feat4: "Aucun logiciel à installer",
+                footer_desc: "Nous formons la prochaine génération de créateurs et d'ingénieurs.", footer_rights: "&copy; 2026 Tudo Tuto STEM LABS. Tous droits réservés."
+            },
+            en: {
+                nav_main: "Main Tutoring", nav_home: "Home", nav_prog: "Curriculum", nav_pricing: "Pricing", nav_contact: "Contact",
+                btn_book: "Book your spot",
+                hero_badge: "Registrations open - Winter 2026",
+                hero_title: "Don't just play.<br><span class='gradient-text'>Create the game.</span>",
+                hero_desc: "Transform screen time into <span class='text-vibrant-green font-semibold'>Engineering & Logic</span> skills. 3D Design workshops for <span class='text-white font-bold'>8-14 year olds</span>.",
+                hero_btn_1: "Launch Mission", hero_btn_2: "How it works",
+                tag_before: "BEFORE", desc_before: "Paper Drawing",
+                tag_after: "AFTER", desc_after: "Tinkercad 3D Design",
+                prob_sub: "The Transformation", prob_title: "From <span class='text-gray-400'>Passive Consumer</span> to <span class='gradient-text'>Active Creator</span>",
+                prob_bad_title: "Passive Mode", prob_bad_1: "Endless YouTube watching", prob_bad_2: "Just playing, without understanding",
+                prob_good_title: "Tudo Tuto Mode", prob_good_1: "<strong>Design</strong> their own 3D objects", prob_good_2: "<strong>Solve</strong> logical problems",
+                curric_title: "Our <span class='gradient-text'>Curriculum</span>",
+                curr_1_title: "3D Engineering", curr_1_desc: "Master Tinkercad. Build rockets, cars, and houses.",
+                curr_2_title: "Logic & Math", curr_2_desc: "Learn geometry and physics without realizing it. Zero boredom.",
+                curr_3_title: "Creativity", curr_3_desc: "Transform an abstract idea into a concrete visual project.",
+                curr_4_title: "Teamwork", curr_4_desc: "Collaborate on joint projects and learn to communicate ideas.",
+                meth_title: "The Tudo Tuto Method", meth_sub: "Why parents trust us to start",
+                meth_stat1: "Max per Group", meth_stat2: "Active Sessions", meth_stat3: "Live (Real-time)", meth_stat4: "Software to Install",
+                meth_card1_title: "Safe Environment", meth_card1_desc: "Small, monitored, and caring groups.",
+                meth_card2_title: "Pro Tools", meth_card2_desc: "We use Tinkercad, not toys.",
+                meth_card3_title: "Guaranteed Fun", meth_card3_desc: "If the kid isn't having fun, we failed.",
+                price_pack: "Explorer Pack", price_val: "$21", price_per: "/session",
+                price_feat1: "Small group (4 max)", price_feat2: "Live Expert Mentoring", price_feat3: "Project Portfolio (No fake certs)", price_feat4: "No software to install",
+                footer_desc: "Training the next generation of creators and engineers.", footer_rights: "&copy; 2026 Tudo Tuto STEM LABS. All rights reserved."
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function toggleLang() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.getElementById('langBtn').innerText = currentLang === 'fr' ? 'FR' : 'EN';
+            document.getElementById('langBtnMobile').innerText = currentLang === 'fr' ? 'FR' : 'EN';
+            
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Animation de révélation au scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // Background Étoilé
+        const container = document.getElementById('stars-container');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(star);
+        }
+
+        // Menu Mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        const closeBtn = document.getElementById('mobile-menu-close');
+
+        function toggleMenu() {
+            menu.classList.toggle('open');
+            overlay.classList.toggle('hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
