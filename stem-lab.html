@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tudo Tuto STEM LABS | Live 3D Modeling & Coding Mentoring for Kids 8-14</title>
-    <meta name="description" content="Turn passive screen time into active building pride. Live online mentoring in 3D Modeling & Coding for kids 8-14, in groups of 4 max. First session 100% free.">
+    <meta name="description" content="Turn passive screen time into active building pride. Live online mentoring in 3D Modeling & Coding for kids 8-14, in groups of 4 max. Taught by passionate student-builders. First session 100% free.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,8 +107,7 @@
         }
         .mobile-menu.open { transform: translateX(0); }
 
-        /* ===== VIDEO SYSTEM =====
-           Videos fade in once their data loads. If a file is missing,
+        /* Videos fade in once their data loads. If a file is missing,
            the fallback layer behind stays visible. */
         .smart-video { opacity: 0; transition: opacity 0.6s ease; }
         .smart-video.loaded { opacity: 1; }
@@ -219,9 +218,8 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
     </div>
     <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
 
-    <!-- ============ SECTION 1 : HERO ============ -->
+    <!-- ============ SECTION 1 : HERO (THE PROBLEM) ============ -->
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <!-- Darkened background image of the boy in the dark -->
         <div class="absolute inset-0 z-0">
             <img src="assets/images/boy-dark-screen.jpg" alt="" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-space-blue/70"></div>
@@ -242,9 +240,9 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                 </h1>
 
                 <p class="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                    Turn their passive consumption into active engineering pride. Live mentoring in
-                    <span class="text-white font-semibold">3D Modeling &amp; Coding</span> for kids
-                    <span class="text-white font-semibold">8-14</span>, taught by expert student-builders.
+                    Turn their passive screen time into active <span class="text-white font-semibold">builder pride</span>.
+                    Live online mentoring in <span class="text-white font-semibold">3D Modeling &amp; Coding</span> for kids
+                    <span class="text-white font-semibold">8-14</span> — taught by passionate <span class="text-vibrant-green font-semibold">student-builders</span>, in groups of 4 max.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -253,7 +251,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                     </a>
                     <a href="#projects" class="bg-white/5 hover:bg-white/10 border border-white/20 text-white font-semibold px-8 py-5 rounded-full text-lg transition-all flex items-center justify-center space-x-2">
                         <i class="fas fa-play-circle text-vibrant-green"></i>
-                        <span>See real projects</span>
+                        <span>See our real projects</span>
                     </a>
                 </div>
 
@@ -265,13 +263,99 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
         </div>
     </section>
 
-    <!-- ============ SECTION 2 : THE TRANSFORMATION ============ -->
+    <!-- ============ SECTION 2 : THE PROOF (videos right after the Hero) ============ -->
+    <section id="projects" class="relative py-20 lg:py-32 overflow-hidden bg-space-blue-light/30">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 reveal">
+                <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">The Proof</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 uppercase tracking-tight">
+                    We Don't Just Teach.<br><span class="gradient-text">We Build Real-World Solutions.</span>
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Every clip below is a real project our <span class="text-vibrant-green font-semibold">student-builders</span> modeled and coded from scratch. We pass that exact same building logic on to your child.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <!-- CARD 1 : 3D MODELING (Tinkercad) -->
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10">
+                    <div class="relative aspect-video bg-gradient-to-br from-vibrant-green/20 to-space-blue">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-cube text-vibrant-green text-5xl opacity-40"></i>
+                        </div>
+                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
+                               autoplay loop muted playsinline preload="metadata"
+                               poster="assets/images/proof-3d-modeling.jpg">
+                            <source src="assets/videos/proof-3d-modeling.mp4" type="video/mp4">
+                        </video>
+                        <span class="absolute top-3 left-3 bg-space-blue/80 backdrop-blur text-vibrant-green text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">Built by us</span>
+                    </div>
+                    <div class="p-7">
+                        <h3 class="text-xl font-bold text-white mb-2">3D Design &amp; Prototyping</h3>
+                        <p class="text-gray-400 text-sm">A real concept-to-model timelapse in Tinkercad. Your child learns the exact workflow we use to design and prototype.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 2 : AI & SENSORS (Drowsiness Detection, coded from scratch) -->
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10" style="transition-delay: 0.1s;">
+                    <div class="relative aspect-video bg-gradient-to-br from-blue-500/20 to-space-blue">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-microchip text-blue-400 text-5xl opacity-40"></i>
+                        </div>
+                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
+                               autoplay loop muted playsinline preload="metadata"
+                               poster="assets/images/proof-ai-detection.jpg">
+                            <source src="assets/videos/proof-ai-detection.mp4" type="video/mp4">
+                        </video>
+                        <span class="absolute top-3 left-3 bg-space-blue/80 backdrop-blur text-vibrant-green text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">Coded from scratch</span>
+                    </div>
+                    <div class="p-7">
+                        <h3 class="text-xl font-bold text-white mb-2">AI &amp; Sensor Integration</h3>
+                        <p class="text-gray-400 text-sm">An AI drowsiness-detection system we coded end-to-end. Your child discovers how smart systems sense, think and react.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 3 : APP DEVELOPMENT (Clothing Assistant) -->
+                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10" style="transition-delay: 0.2s;">
+                    <div class="relative aspect-video bg-gradient-to-br from-purple-500/20 to-space-blue">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-code text-purple-400 text-5xl opacity-40"></i>
+                        </div>
+                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
+                               autoplay loop muted playsinline preload="metadata"
+                               poster="assets/images/proof-app-dev.jpg">
+                            <source src="assets/videos/proof-app-dev.mp4" type="video/mp4">
+                        </video>
+                        <span class="absolute top-3 left-3 bg-space-blue/80 backdrop-blur text-vibrant-green text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">Built by us</span>
+                    </div>
+                    <div class="p-7">
+                        <h3 class="text-xl font-bold text-white mb-2">App Development &amp; Logic</h3>
+                        <p class="text-gray-400 text-sm">A real outfit-assistant app we built from scratch — the same logic that powers every modern piece of tech your child uses.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-center text-gray-500 text-sm mt-10 max-w-2xl mx-auto">
+                We are students who love to build. No fake credentials, no canned curriculum — just real projects, transmitted directly to your child.
+            </p>
+
+            <div class="text-center mt-10 reveal">
+                <a href="https://calendly.com/bondobachir/30min" target="_blank" rel="noopener" class="btn-shine inline-block bg-gradient-to-r from-vibrant-green to-vibrant-green-dark hover:from-vibrant-green-light hover:to-vibrant-green text-white font-bold px-10 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-xl shadow-vibrant-green/30" onclick="trackLead();">
+                    Book Their Free Session 🚀
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 3 : THE TRANSITION (Passive -> Active Builder) ============ -->
     <section id="transformation" class="relative py-20 lg:py-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
-                <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">The Transformation</span>
+                <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">The Transition</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4">
-                    From <span class="text-gray-400">Passive Consumer</span> to <span class="gradient-text">Active Creator</span>
+                    From <span class="text-gray-400">Passive Consumer</span> to <span class="gradient-text">Active Builder</span>
                 </h2>
             </div>
 
@@ -281,7 +365,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                 <div class="reveal bg-gradient-to-br from-red-900/20 to-red-950/10 rounded-3xl p-8 lg:p-10 border border-red-500/20 flex flex-col">
                     <div class="flex items-center space-x-3 mb-6">
                         <i class="fas fa-times-circle text-red-400 text-2xl"></i>
-                        <h3 class="text-2xl font-bold text-red-400">The Problem</h3>
+                        <h3 class="text-2xl font-bold text-red-400">Before</h3>
                     </div>
                     <p class="text-gray-400 mb-6">Hours disappear behind a screen — and nothing is built, learned, or remembered.</p>
                     <ul class="space-y-4">
@@ -300,19 +384,19 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                     </ul>
                 </div>
 
-                <!-- THE SOLUTION -->
+                <!-- THE SOLUTION (with the smiling boy image) -->
                 <div class="reveal bg-gradient-to-br from-vibrant-green/20 to-vibrant-green/5 rounded-3xl p-8 lg:p-10 border border-vibrant-green/30 flex flex-col">
                     <div class="flex items-center space-x-3 mb-6">
                         <i class="fas fa-check-circle text-vibrant-green text-2xl"></i>
-                        <h3 class="text-2xl font-bold text-vibrant-green">The Solution</h3>
+                        <h3 class="text-2xl font-bold text-vibrant-green">After</h3>
                     </div>
                     <div class="rounded-2xl overflow-hidden border border-vibrant-green/30 mb-6 shadow-lg">
-                        <img src="assets/images/boy-laptop-rocket.jpg" alt="A child smiling at the 3D rocket he designed on his laptop" class="w-full h-56 sm:h-64 object-cover">
+                        <img src="assets/images/boy-laptop-rocket.jpg" alt="A child smiling at the 3D rocket he just built on his laptop" class="w-full h-56 sm:h-64 object-cover">
                     </div>
                     <ul class="space-y-4">
                         <li class="flex items-start space-x-3 text-white">
                             <i class="fas fa-rocket text-vibrant-green mt-1"></i>
-                            <span><strong>Designs</strong> their own 3D models — and sees them come to life</span>
+                            <span><strong>Designs</strong> their own 3D models — and watches them come to life</span>
                         </li>
                         <li class="flex items-start space-x-3 text-white">
                             <i class="fas fa-brain text-vibrant-green mt-1"></i>
@@ -329,87 +413,8 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
         </div>
     </section>
 
-    <!-- ============ SECTION 3 : THE PROOF ============ -->
-    <section id="projects" class="relative py-20 lg:py-32 overflow-hidden bg-space-blue-light/30">
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">The Proof</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-5 uppercase tracking-tight">
-                    We Don't Just Teach.<br><span class="gradient-text">We Build Real-World Solutions.</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
-                    We pass our direct building logic on to your child. Here is what we create — and what they will learn to master.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-
-                <!-- CARD 1 : 3D DESIGN -->
-                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10">
-                    <div class="relative aspect-video bg-gradient-to-br from-vibrant-green/20 to-space-blue">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-cube text-vibrant-green text-5xl opacity-40"></i>
-                        </div>
-                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
-                               autoplay loop muted playsinline preload="metadata"
-                               poster="assets/images/proof-3d-modeling.jpg">
-                            <source src="assets/videos/proof-3d-modeling.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="p-7">
-                        <h3 class="text-xl font-bold text-white mb-2">3D Design &amp; Prototyping</h3>
-                        <p class="text-gray-400 text-sm">From a blank screen to a real 3D model — your child learns to design and prototype like a pro.</p>
-                    </div>
-                </div>
-
-                <!-- CARD 2 : AI & SENSORS -->
-                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10" style="transition-delay: 0.1s;">
-                    <div class="relative aspect-video bg-gradient-to-br from-blue-500/20 to-space-blue">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-microchip text-blue-400 text-5xl opacity-40"></i>
-                        </div>
-                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
-                               autoplay loop muted playsinline preload="metadata"
-                               poster="assets/images/proof-ai-detection.jpg">
-                            <source src="assets/videos/proof-ai-detection.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="p-7">
-                        <h3 class="text-xl font-bold text-white mb-2">AI &amp; Sensor Integration</h3>
-                        <p class="text-gray-400 text-sm">Real AI in action. Kids discover how smart systems sense, think, and react to the world.</p>
-                    </div>
-                </div>
-
-                <!-- CARD 3 : APP DEVELOPMENT -->
-                <div class="reveal card-hover bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl overflow-hidden border border-white/10" style="transition-delay: 0.2s;">
-                    <div class="relative aspect-video bg-gradient-to-br from-purple-500/20 to-space-blue">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i class="fas fa-code text-purple-400 text-5xl opacity-40"></i>
-                        </div>
-                        <video class="smart-video lazy-video absolute inset-0 w-full h-full object-cover"
-                               autoplay loop muted playsinline preload="metadata"
-                               poster="assets/images/proof-app-dev.jpg">
-                            <source src="assets/videos/proof-app-dev.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="p-7">
-                        <h3 class="text-xl font-bold text-white mb-2">App Development &amp; Logic</h3>
-                        <p class="text-gray-400 text-sm">Turning ideas into working apps — the logic that powers every piece of modern tech.</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="text-center mt-14 reveal">
-                <a href="https://calendly.com/bondobachir/30min" target="_blank" rel="noopener" class="btn-shine inline-block bg-gradient-to-r from-vibrant-green to-vibrant-green-dark hover:from-vibrant-green-light hover:to-vibrant-green text-white font-bold px-10 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-xl shadow-vibrant-green/30" onclick="trackLead();">
-                    Book Their Free Session 🚀
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- ============ SECTION 4 : WHY PARENTS TRUST US ============ -->
-    <section id="why-us" class="relative py-20 lg:py-32 overflow-hidden">
+    <section id="why-us" class="relative py-20 lg:py-32 overflow-hidden bg-space-blue-light/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
                 <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">Reassurance</span>
@@ -444,7 +449,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
     </section>
 
     <!-- ============ SECTION 5 : PRICING & FINAL CTA ============ -->
-    <section id="pricing" class="relative py-20 lg:py-32 overflow-hidden bg-space-blue-light/30">
+    <section id="pricing" class="relative py-20 lg:py-32 overflow-hidden">
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14 reveal">
                 <span class="text-vibrant-green font-semibold text-sm uppercase tracking-wider">Premium Mentoring</span>
@@ -452,7 +457,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                     Invest in Real <span class="gradient-text">Building Skills</span>
                 </h2>
                 <p class="text-gray-400 max-w-2xl mx-auto">
-                    Your child's first session is 100% free — no card, no commitment. After that, choose the rhythm that fits your family.
+                    Your child's first session is 100% free — no card, no commitment. After that, two clear plans to grow real skill.
                 </p>
             </div>
 
@@ -488,12 +493,12 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                     </div>
                 </div>
 
-                <!-- CLASSIC -->
+                <!-- OPTION 1 : CLASSIC -->
                 <div class="reveal" style="transition-delay: 0.1s;">
                     <div class="h-full bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border border-white/10 shadow-xl flex flex-col">
                         <div class="text-center mb-6">
-                            <h3 class="text-xl font-bold text-white mb-1">Classic</h3>
-                            <p class="text-gray-400 text-sm">1 live class per week</p>
+                            <h3 class="text-xl font-bold text-white mb-1">Option 1 · Classic</h3>
+                            <p class="text-gray-400 text-sm">1 live session per week</p>
                             <div class="flex items-baseline justify-center space-x-1 mt-4">
                                 <span class="text-5xl font-black text-vibrant-green">$125</span>
                                 <span class="text-gray-400 text-sm">/ month</span>
@@ -503,7 +508,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                         <div class="space-y-3 mb-8 flex-grow">
                             <div class="flex items-center space-x-3 text-sm">
                                 <i class="fas fa-check text-vibrant-green"></i>
-                                <span class="text-gray-300">4 live sessions per month</span>
+                                <span class="text-gray-300">Pack of 4 live sessions per month</span>
                             </div>
                             <div class="flex items-center space-x-3 text-sm">
                                 <i class="fas fa-check text-vibrant-green"></i>
@@ -524,15 +529,15 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                     </div>
                 </div>
 
-                <!-- INTENSIVE -->
+                <!-- OPTION 2 : INTENSIVE — ULTIMATE PICK -->
                 <div class="reveal" style="transition-delay: 0.2s;">
-                    <div class="h-full bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border-2 border-vibrant-green shadow-2xl relative flex flex-col md:scale-105 z-10">
+                    <div class="h-full bg-gradient-to-br from-space-blue-light to-space-blue rounded-3xl p-8 border-2 border-vibrant-green shadow-2xl shadow-vibrant-green/20 relative flex flex-col md:scale-105 z-10">
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-vibrant-green text-space-blue text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
-                            ⭐ BEST VALUE
+                            ⭐ Ultimate Pick · Max Skills
                         </div>
                         <div class="text-center mb-6">
-                            <h3 class="text-xl font-bold text-white mb-1">Intensive</h3>
-                            <p class="text-gray-400 text-sm">2 live classes per week — Modeling + Coding</p>
+                            <h3 class="text-xl font-bold text-white mb-1">Option 2 · Intensive</h3>
+                            <p class="text-gray-400 text-sm">2 live sessions per week — Modeling + Coding</p>
                             <div class="flex items-baseline justify-center space-x-1 mt-4">
                                 <span class="text-5xl font-black text-vibrant-green">$265</span>
                                 <span class="text-gray-400 text-sm">/ month</span>
@@ -542,11 +547,11 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                         <div class="space-y-3 mb-8 flex-grow">
                             <div class="flex items-center space-x-3 text-sm font-bold text-vibrant-green">
                                 <i class="fas fa-star"></i>
-                                <span>8 live sessions per month</span>
+                                <span>Pack of 8 live sessions per month</span>
                             </div>
                             <div class="flex items-center space-x-3 text-sm">
                                 <i class="fas fa-check text-vibrant-green"></i>
-                                <span class="text-gray-300">Two disciplines: 3D Modeling + Coding</span>
+                                <span class="text-gray-300">Two disciplines: 3D Modeling <strong>+</strong> Coding</span>
                             </div>
                             <div class="flex items-center space-x-3 text-sm">
                                 <i class="fas fa-check text-vibrant-green"></i>
@@ -561,6 +566,9 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                                 <span class="text-gray-300">Priority scheduling &amp; project portfolio</span>
                             </div>
                         </div>
+                        <p class="text-xs text-vibrant-green/90 text-center mb-4 italic">
+                            The ultimate pack to maximize your child's skills.
+                        </p>
                         <a href="https://calendly.com/bondobachir/30min" target="_blank" rel="noopener" class="btn-shine block w-full bg-gradient-to-r from-vibrant-green to-vibrant-green-dark text-white font-bold px-6 py-4 rounded-full text-center shadow-lg" onclick="trackCheckout('Intensive Monthly', 265);">
                             Choose Intensive
                         </a>
@@ -595,7 +603,7 @@ src="https://www.facebook.com/tr?id=854880634080360&ev=PageView&noscript=1"
                         <span class="text-xl font-bold text-white">Tudo Tuto STEM LABS</span>
                     </div>
                     <p class="text-gray-400 text-sm max-w-xs">
-                        Training the next generation of creators and builders.
+                        Training the next generation of creators and builders — by students, for kids.
                     </p>
                 </div>
 
